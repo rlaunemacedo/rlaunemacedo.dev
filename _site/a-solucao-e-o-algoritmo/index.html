@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<title>A solução e o algoritmo | e.rlaune</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Raimundo Nonato Launé macêdo">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/a-solucao-e-o-algoritmo/">
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
+ <!-- page.mathjax or site.mathjax %}-->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
+  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/a-solucao-e-o-algoritmo/">A solução e o algoritmo</a></h1><time datetime="2021-05-01T00:00:00-03:00">May 01, 2021</time>
+</header>
+
+  <p>Em geral, para se resolver um determinado problema, existem diversas formas ou abordagens. Pode acontecer que uma abordagem não se diferencie de outra já existente senão pela quantidade de passos dados para chegar à tal solução.</p>
+
+<p><strong>O que é um algoritmo?</strong>
+Em pesquisa rápida encontramos:</p>
+
+<blockquote>
+  <p>MATEMÁTICA - sequência finita de regras, raciocínios ou operações que, aplicada a um número finito de dados, permite solucionar classes semelhantes de problemas.</p>
+
+  <p>INFORMÁTICA - conjunto das regras e procedimentos lógicos perfeitamente definidos que levam à solução de um problema em um número finito de etapas.</p>
+</blockquote>
+
+<p>As duas definições envolvem o binômio problema-solução. Além disso, as duas definições usam a palavra regra e operações/procedimentos bem definidos e em quantidade finita. Ótimo!</p>
+
+<p><strong>Nada como um bom exemplo!</strong></p>
+
+<p>Como sou matemático, vou puxar para “minha sardinha”. Imaginando que todo mundo que se interessou por este artigo passou pelos cursos colegiais e resolveu uma equação do segundo grau, devemos lembrar que a solução dessa classe de problemas não se encontra apenas dando uma “olhadela” descompromissada na igualdade.</p>
+
+<p><strong>Seja P:</strong>
+O problema de encontrar os dois números reais \(x'\) e \(x''\) tais que satisfaçam a igualdade</p>
+
+\[ax^2 + bx + c = 0.\]
+
+<p>Se você bem se lembra, para resolver este tipo de problema, podemos utilizar um método (que nem é de Bhaskara) que consiste apenas em manipular os coeficientes de \(x^2\), \(x^1\) e \(x^0\), nomeadamente, \(a\), \(b\) e \(c\), respectivamente.</p>
+
+<p>Então a primeira coisa a fazer é obter o valor de \(a\), de \(b\) e de \(c\). (tomemos nota!)</p>
+
+<p>Novamente, devemos lembrar que, segundo o método apresentado, as duas soluções devem satisfazer a seguinte afirmação:</p>
+
+<p>Se \(x\) é solução de <strong>P</strong> então vale a seguinte relação entre \(x\) e os coeficientes \(a\), \(b\) e \(c\):</p>
+
+\[\begin{align}
+  \tag{eq:1}
+  x = \frac{-b \pm \sqrt{b^2-4.a.c}}{2.a}.
+\end{align}\]
+
+<p>O lado direito desta igualdade nos abre dois alertas:</p>
+
+<p>Como não podemos ter um denominador nulo, o valor de \(a\) não pode ser zero. Antes disso, esta expressão só pode ser escrita porque estamos tratando de uma equação do segundo grau e se \(a = 0\), nem teríamos uma. (tomemos nota!)</p>
+
+<p>O radicando não pode ser um número negativo pois estamos tratando de raízes <code class="language-plaintext highlighter-rouge">reais</code> e não das <code class="language-plaintext highlighter-rouge">complexas</code>. (tomemos nota!)</p>
+
+<p>O numerador apresenta uma <code class="language-plaintext highlighter-rouge">soma</code> e uma <code class="language-plaintext highlighter-rouge">diferença</code>. De fato, iremos encontrar uma solução \(x'\) para a soma e outra \(x''\) para a subtração ou vice e versa. (tomemos nota!)</p>
+
+<p>Ora! o que estamos fazendo não é nada mais do que nos organizando para resolver o problema <strong>P</strong>, uma vez que já conhecemos um modo de chegarmos até a sua solução.</p>
+
+<p>Que tal arrumarmos as nossas anotações? Vamos adotar uma ordem <code class="language-plaintext highlighter-rouge">lógica</code> e <code class="language-plaintext highlighter-rouge">bem definida</code> para escrevermos as nossas observações:</p>
+
+<ol>
+  <li>Vamos começar;</li>
+  <li>Precisamos conhecer os coeficientes da equação (\(a\), \(b\) e \(c\));</li>
+  <li>Não devemos aceitar \(a = 0\), pois, se assim for, nem teríamos uma aquação do segundo grau e então devemos voltar para o passo anterior;</li>
+  <li>Precisamos saber o sinal daquele radicando: \(b^2-4.a.c\). Ele é conhecido como discriminante da equação e lhe é atribuído a letra grega maiúscula delta (\(\Delta\)). Assim, se \(\Delta \lt 0\), devemos voltar ao passo [2.], pois a equação não possui raízes reais;</li>
+  <li>
+    <p>Se \(\Delta = 0\), a expressão (eq:1) tornar-se-á apenas \(x = \frac{-b}{2.a}\). Calculamos e apresentamos o resultado com a assertiva de que as raízes reais são iguais. Como nada mais há que fazer, vamos direto para o final do procedimento;</p>
+  </li>
+  <li>Se \(\Delta \gt 0\), devemos calcular um valor para \(x\) com respeito à soma e outro com respeito à diferença em (eq:1), exibimos os resultados; e</li>
+  <li>Terminamos.</li>
+</ol>
+
+<p>O que acabamos de escrever? Um algoritmo!</p>
+
+<p>Eperamos que você tenha gostado do assunto.</p>
+
+  
+</article>
+
+
+
+<footer>
+  <div>Made with <b style="color: #f45;">&lt;3</b></div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

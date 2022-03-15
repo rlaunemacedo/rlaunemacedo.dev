@@ -1,0 +1,123 @@
+---
+layout: post
+title: As operações e os conjuntos – V
+mathjax: true
+author: Raimundo Nonato Launé macêdo
+tags: []
+---
+
+Continuaremos tratando sobre os Inteitos. A propósito, já estamos no terceiro artigo falando sobre os Inteiros. De fato os Inteiros abrirá leque de oportunidades para compreendermos mais sobre a adição, subtração, multiplicação, divisão, dentre outras operações. Particularmente, achamos que compreender estas operações neste conjunto desembaraçará muitos caminhos.
+
+Há quem possa se perguntar se não tem como simplificas estas coisas cheias de parêntesis. Não terá como escrever menos? Lembremos que fizemos uma provocação no artigo anterior sobre esta expressão:
+
+$$(-1) \times (-5) = -(-5) = +5 = 5.$$
+
+Sim, vamos começar a discutir este tipo de indagação
+
+$$-(-6) = +6 -(-6 + 6) = +6 - (0) = +(12 - 6)$$
+
+-(+6) = -6 - (+6 -6)
+
+-(-6) = (-6+6) + 6 = -(0)+6 =  6
+
+#### Adição, subtração, multiplicação e divisão
+
+A adição de números inteiros se dá respeitando os sinais dos números. Na verdade, como veremos mais tarde, será assim para qualquer número real. (O conjunto dos números Reais, é onde queremos chegar com estes artigos!).
+
+Importante ressaltar que estas quatro operações são do tipo binária. Ou seja, para cada par de números $$x$$ e $$y$$, buscamos $$x + y$$, $$x - y$$, $$x \times y$$ ou $$x \div y$$, neste último caso, teremos sempre garantir que $$y \neq 0$$, para que a divisão tenha sentido.
+
+Retomando o exemplo do artigo anterior anterior.
+
+$$
+\begin{align}
+  \tag{Ex:1}
+  40 - 60 +50 - 70 +60 -80 = -60.
+\end{align}
+$$
+
+Que escreveremos assim
+
+$$
+\begin{align}
+  \tag{Ex:2}
+  (+40) + (-60) + (+50) + (- 70) + (+60) + (-80) = (-60).
+\end{align}
+$$
+
+Na expressão (Ex:2) fizemos questão de colocar o sinal e envolver cada um dos números entre parêntesis. Como estamos falando em adição, o equivalente da expressão (Ex:1) é o que temos em (Ex:2). Muito bem!
+
+Como dissemos antes, somando todos os créditos e todos os débitos, teremos
+
+$$
+\begin{align}
+  \tag{Ex:3}
+  (+150) + (-210) = (-60).
+\end{align}
+$$
+
+Diremos então que um crédito de 150 `mais` um débito de 210 é o equivalente a um débito de 60. Da mesma forma, um débito de 210 mais um crédito de 150 é equivalente a um débito de 60
+
+$$
+\begin{align}
+  \tag{Ex:4}
+  (-210) + (+150) = (-60).
+\end{align}
+$$
+
+Agora vamos analisar esta expressão:
+
+$$
+\begin{align}
+  \tag{Ex:5}
+  (-40) + (+60) + (-50) + (+70) + (-60) + (+80) = (+60).
+\end{align}
+$$
+
+Como antes, vamos somar separadamente todos os créditos e os débitos, e teremos 
+
+$$
+\begin{align}
+  \tag{Ex:6}
+  (-150) + (+210) = (+60).
+\end{align}
+$$
+
+Agora, porque a soma dos crédito é maior que a soma dos débitos, o equivalente da adição dos dois deum um crédito. O que era de se esperar.
+
+Devemos observar que o que temos feito sempre é `somar` separadamente os números que possuem o mesmo sinal e só então, ao final, vermos a `diferença` entre os números de sinais opostos. O sinal da resposta será: 
+- se o débito for maior que o crédito, então teremos um débito, logo, sinal negativo ($$-$$); e
+- se o crédito for maior que o débito, então teremos um crédito, logo, sinal positivo ($$+$$).
+
+Para sintetizarmos o que vimos até agora, vamos relembrar o conceito de `valor absoluto` ($$Abs() ou | . |$$) de um número. Sobre os termos créditos e déitos, poderíamos escrever:
+- Valor absoluto do crédito
+
+$$Abs(+130) = |+130| = 130;$$
+
+- Valor absoluto do débito 
+ 
+$$Abs(-130) = |-130| = 130.$$
+
+Assim, o valor absoluto de um número é sempre um número positivo.
+
+Agora podemos sintetizar o que vimos anteriormente sobre a adição de números inteiros da seguinte forma:
+
+- Na adição de dois números de `mesmo sinal`, a soma terá sempre o `sinal das parcelas`.
+
+$$(+2)+(+5)=(+7)$$
+
+$$(-3)+(-6)=(-9).$$
+
+- Na adição de dois números de `sinais opostos`, a soma terá sempre o sinal da `parcela de maior valor absoluto`.
+
+$$(-2)+(+5)=(+3)$$
+
+$$(+3)+(-7)=(-4).$$
+
+## Tome nota
+1. O nome da operação é `adição`, o que estamos adicionando chamamos de `parcelas` e o resultado de uma adição chamamos de `soma`.
+2. Quando os números têm o mesmo sinal, de fato, nós realizamos uma adição das parcelas, respeitando o sinal delas na soma.
+3. Quando os números têm sinais opostos, nós calculamos é a diferença entre os valores absolutos e colocamos o sinal do maior deles na soma.
+
+Tudo em conformidade com o que estudamos até o presente momento.
+
+No próximo artigo, daremos continuidade a este estudo sobre as operações com os Inteiros. Até la!

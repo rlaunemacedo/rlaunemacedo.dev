@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<title>As operações e os conjuntos – IV | e.rlaune</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Raimundo Nonato Launé macêdo">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/as-operacoes-e-os-conjuntos-iv/">
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
+ <!-- page.mathjax or site.mathjax %}-->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
+  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/as-operacoes-e-os-conjuntos-iv/">As operações e os conjuntos – IV</a></h1><time datetime="2021-05-03T00:00:00-03:00">May 03, 2021</time>
+</header>
+
+  <p>Continuaremos tratando sobre os Inteitos. Há bastante coisas a serem compreendidas e desmistificadas. Muitas expressões aparecem com os Inteiros, à primeira vista, com um nível de complexidade alarmante. Primeiro, a partir de fragmentos simples, precisamos compreender por que determinadas igualdade são asseguradas como líquidas. Por exemplo, como compreender a seguite igualdade?</p>
+
+\[(-1) \times (-5) = -(-5) = +5 = 5.\]
+
+<p>É sobre estas e outras coisas que trataremos neste artigo.</p>
+
+<p>Coisas do tipo <code class="language-plaintext highlighter-rouge">jogos de sinais</code>, difundidas sem limites, precisam ser colocadas (ou substituídas) de forma séria. Afinal de contas a Matemática não é um tabuleiro onde se jogam com os sinais.</p>
+
+<h4 id="adição-subtração-multiplicação-e-divisão">Adição, subtração, multiplicação e divisão</h4>
+
+<p>A adição de números inteiros se dá respeitando os sinais dos números. Na verdade, como veremos mais tarde, será assim para qualquer número real. (O conjunto dos números Reais, é onde queremos chegar com estes artigos!).</p>
+
+<p>Importante ressaltar que estas quatro operações são do tipo binária. Ou seja, para cada par de números \(x\) e \(y\), buscamos \(x + y\), \(x - y\), \(x \times y\) ou \(x \div y\), neste último caso, teremos sempre garantir que \(y \neq 0\), para que a divisão tenha sentido.</p>
+
+<p>Retomando o exemplo do artigo anterior anterior.</p>
+
+\[\begin{align}
+  \tag{Ex:1}
+  40 - 60 +50 - 70 +60 -80 = -60.
+\end{align}\]
+
+<p>Que escreveremos assim</p>
+
+\[\begin{align}
+  \tag{Ex:2}
+  (+40) + (-60) + (+50) + (- 70) + (+60) + (-80) = (-60).
+\end{align}\]
+
+<p>Na expressão (Ex:2) fizemos questão de colocar o sinal e envolver cada um dos números entre parêntesis. Como estamos falando em adição, o equivalente da expressão (Ex:1) é o que temos em (Ex:2). Muito bem!</p>
+
+<p>Como dissemos antes, somando todos os créditos e todos os débitos, teremos</p>
+
+\[\begin{align}
+  \tag{Ex:3}
+  (+150) + (-210) = (-60).
+\end{align}\]
+
+<p>Diremos então que um crédito de 150 <code class="language-plaintext highlighter-rouge">mais</code> um débito de 210 é o equivalente a um débito de 60. Da mesma forma, um débito de 210 mais um crédito de 150 é equivalente a um débito de 60</p>
+
+\[\begin{align}
+  \tag{Ex:4}
+  (-210) + (+150) = (-60).
+\end{align}\]
+
+<p>Agora vamos analisar esta expressão:</p>
+
+\[\begin{align}
+  \tag{Ex:5}
+  (-40) + (+60) + (-50) + (+70) + (-60) + (+80) = (+60).
+\end{align}\]
+
+<p>Como antes, vamos somar separadamente todos os créditos e os débitos, e teremos</p>
+
+\[\begin{align}
+  \tag{Ex:6}
+  (-150) + (+210) = (+60).
+\end{align}\]
+
+<p>Agora, porque a soma dos crédito é maior que a soma dos débitos, o equivalente da adição dos dois deum um crédito. O que era de se esperar.</p>
+
+<p>Devemos observar que o que temos feito sempre é <code class="language-plaintext highlighter-rouge">somar</code> separadamente os números que possuem o mesmo sinal e só então, ao final, vermos a <code class="language-plaintext highlighter-rouge">diferença</code> entre os números de sinais opostos. O sinal da resposta será:</p>
+<ul>
+  <li>se o débito for maior que o crédito, então teremos um débito, logo, sinal negativo (\(-\)); e</li>
+  <li>se o crédito for maior que o débito, então teremos um crédito, logo, sinal positivo (\(+\)).</li>
+</ul>
+
+<p>Para sintetizarmos o que vimos até agora, vamos relembrar o conceito de <code class="language-plaintext highlighter-rouge">valor absoluto</code> (\(Abs() ou | . |\)) de um número. Sobre os termos créditos e déitos, poderíamos escrever:</p>
+<ul>
+  <li>Valor absoluto do crédito</li>
+</ul>
+
+\[Abs(+130) = |+130| = 130;\]
+
+<ul>
+  <li>Valor absoluto do débito</li>
+</ul>
+
+\[Abs(-130) = |-130| = 130.\]
+
+<p>Assim, o valor absoluto de um número é sempre um número positivo.</p>
+
+<p>Agora podemos sintetizar o que vimos anteriormente sobre a adição de números inteiros da seguinte forma:</p>
+
+<ul>
+  <li>Na adição de dois números de <code class="language-plaintext highlighter-rouge">mesmo sinal</code>, a soma terá sempre o <code class="language-plaintext highlighter-rouge">sinal das parcelas</code>.</li>
+</ul>
+
+\[(+2)+(+5)=(+7)\]
+
+\[(-3)+(-6)=(-9).\]
+
+<ul>
+  <li>Na adição de dois números de <code class="language-plaintext highlighter-rouge">sinais opostos</code>, a soma terá sempre o sinal da <code class="language-plaintext highlighter-rouge">parcela de maior valor absoluto</code>.</li>
+</ul>
+
+\[(-2)+(+5)=(+3)\]
+
+\[(+3)+(-7)=(-4).\]
+
+<h2 id="tome-nota">Tome nota</h2>
+<ol>
+  <li>O nome da operação é <code class="language-plaintext highlighter-rouge">adição</code>, o que estamos adicionando chamamos de <code class="language-plaintext highlighter-rouge">parcelas</code> e o resultado de uma adição chamamos de <code class="language-plaintext highlighter-rouge">soma</code>.</li>
+  <li>Quando os números têm o mesmo sinal, de fato, nós realizamos uma adição das parcelas, respeitando o sinal delas na soma.</li>
+  <li>Quando os números têm sinais opostos, nós calculamos é a diferença entre os valores absolutos e colocamos o sinal do maior deles na soma.</li>
+</ol>
+
+<p>Tudo em conformidade com o que estudamos até o presente momento.</p>
+
+<p>No próximo artigo, daremos continuidade a este estudo sobre as operações com os Inteiros. Até la!</p>
+
+  
+</article>
+
+
+
+<footer>
+  <div>Made with <b style="color: #f45;">&lt;3</b></div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

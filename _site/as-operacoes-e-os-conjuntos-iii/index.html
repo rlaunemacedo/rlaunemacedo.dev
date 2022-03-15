@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<title>As operações e os conjuntos – III | e.rlaune</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Raimundo Nonato Launé macêdo">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/as-operacoes-e-os-conjuntos-iii/">
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
+ <!-- page.mathjax or site.mathjax %}-->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
+  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/as-operacoes-e-os-conjuntos-iii/">As operações e os conjuntos – III</a></h1><time datetime="2021-05-03T00:00:00-03:00">May 03, 2021</time>
+</header>
+
+  <p>No artigo anterior, nós tratamos sobre o conjunto dos números naturais, fizemos algumas operações de contagem e dissemos que \(\mathbb{N}\) é fechado em relação à adição e também em relação à multiplicação. No entanto, não pudemos afirmar a mesma coisa em relação à subtração.</p>
+
+<p>Claro que um problema do tipo \(130 - 300\) terá uma solução e, neste caso, é \(-70\). Mas se \(-70\) não está em \(\Bbb{N}\), qual conjunto conterá tais números?</p>
+
+<p>Em <code class="language-plaintext highlighter-rouge">complemento</code> aos Naturais, apresentamos o Conjunto do Números Inteiros Relativos ao Zero, ou simplesmente os Inteiros, que é representado pela letra maiúscula, também estilizada zê: \(\Bbb{Z}\). Que pode ser assim apresentado:</p>
+
+\[\Bbb{Z} = \{..., -3, -2, -1, 0, +1, +2, +3, ...\}.\]
+
+<p>Vê-se que o zero não possui sinal por ser neutro. Usualmente não se colocam os sinais de mais nos números positivos, assim</p>
+
+\[\Bbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\}.\]
+
+<p>Vemos então que a solução do problema anterior tem agora <code class="language-plaintext highlighter-rouge">cobertura</code>: \(-70 \in \Bbb{Z}\). Mais do que isso:</p>
+
+\[\{0, 1, 2, 3, ...\} \subset \{..., -3, -2, -1, 0, 1, 2, 3, ...\},\]
+
+<p>ou seja, os Naturais constituem um subconjunto dos Inteiros. Em símbolos, \(\Bbb{N} \subset \Bbb{Z}\).</p>
+
+<p>Logo \(\Bbb{Z}\) cobre, até agora, a solução de todos os nossos problemas.</p>
+
+<h2 id="um-pouco-mais-sobre-os-inteiros">Um pouco mais sobre os Inteiros</h2>
+
+<h3 id="alguns-subconjuntos">Alguns subconjuntos</h3>
+
+<p>Dado que todo conjunto é subconjunto de si próprio, temos que</p>
+
+\[\Bbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros não nulos</p>
+
+\[\Bbb{Z}^* = \{..., -3, -2, -1, 1, 2, 3, ...\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros não negativos</p>
+
+\[\Bbb{Z}_+ = \{0, 1, 2, 3, ...\} = \Bbb{N} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros positivos</p>
+
+\[\Bbb{Z}_+^* = \{1, 2, 3, 4, ...\} = \Bbb{N}^* \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros não positivos</p>
+
+\[\Bbb{Z}_- = \{..., -3, -2, -1, 0\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros negativos</p>
+
+\[\Bbb{Z}_-^* = \{..., -4, -3, -2, -1\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros pares</p>
+
+\[\{2k; k \in \Bbb{Z}\} = \{..., -6, -4, -2, 0, 2, 4, 6, ...\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Naturais ímpares</p>
+
+\[\{2k+1; k \in \Bbb{Z}\} = \{..., -5, -3, -1, 1, 3, 5, 7, ...\} \subset \Bbb{Z}.\]
+
+<h3 id="relação-de-ordem">Relação de ordem</h3>
+
+<p>Para todo \(z \in \Bbb{Z}\), teremos sempre que \(z \lt z+1\) (equivalentemente \(z-1 \lt z\)). É o mesmo que escrever</p>
+
+<p>\(... \lt -3 \lt -2 \lt -1 \lt 0 \lt 1 \lt 2 \lt 3 \lt ...\).</p>
+
+<h3 id="operações-com-os-inteiros">Operações com os Inteiros</h3>
+
+<p>Vimos que os Naturais também são Inteiros, logo já temos que \(\Bbb{Z}\) é fechado em relação à adição e à multiplicação. Ótimo!</p>
+
+<p>Nos próximos problemas, para efeitos didáticos, associaremos quando for possível aos números inteiros positivos o termo <code class="language-plaintext highlighter-rouge">crédito</code>, da mesma forma aos negativos o termo <code class="language-plaintext highlighter-rouge">débito</code>.</p>
+
+<p><strong>Situação 1:</strong> Antônio precisa adquirir um bem no valor de R$ 165,00. Como no momento presente não estava com esse dinheiro à disposição, resolveu tomar emprestado com sua cunhada Marta esta quantia. Recebido o empréstimo, Antônio fez a compra. No final da semana Antônio recebeu um adiantamento e pagou a Marta a quantia de R$ 100,00.</p>
+
+<p><strong>Indagação</strong> Antônio liquidou (mesmo que zerar) seu empréstimo com Marta?</p>
+
+<p>Claro que não! Como devemos expor o problema matematicamente?</p>
+
+\[-165 + 100 = -65\]
+
+<p>Interpretação: Deve 165 e credito de 100. Ficou devendo 65.</p>
+
+<p>Podeŕamos também escrever</p>
+
+\[+100 - 165 = -65\]
+
+<p>ou</p>
+
+\[100 - 165 = -65\]
+
+<p>Interpretação: Tem um crédito de 100, porém deve 165. Ficou devendo 65.</p>
+
+<p>Em todos os casos, o resultado é -65. Ou seja, após a efetização de todas as transações, ainda possui um débito de R$ 65,00.</p>
+
+<p>Toda vez que o total de créditos é menor que o total de débitos, ainda restará débito!</p>
+
+<h4 id="faça-você-mesmo">Faça você mesmo!</h4>
+
+\[\begin{align}
+  \tag{Ex:1}
+  40 - 60 +50 - 70 +60 -80 = -60.
+\end{align}\]
+
+<p>O que temos aqui: Somando todos os créditos, temos (+150) e somando-se todos os débitos, obtemos (-210), logo é normal que operando as transações, reste um débito de 60.</p>
+
+<p>Como interpretaríamos a expressão (Ex:1)?</p>
+
+<p>Imagine que você opera com um credor, sua conta esta zerada e faz as seguintes transações:</p>
+<ul>
+  <li>Certo dia credita R$ 40,00;</li>
+  <li>Depois toma emprestado R$ 60,00;</li>
+  <li>Em outro dia faz um depósito de R$ 50,00;</li>
+  <li>Volta e faz um débito de R$ 70,00;</li>
+  <li>Volta a fazer um depósito de R$ 60,00;</li>
+  <li>Em outro dia faz um débito de R$ 80,00.</li>
+</ul>
+
+<p>Simples de entender o fato da conta estar no vermelho e com débito de R$ 60,00.</p>
+
+<p>No próximo artigo continuaremos tratando um pouco mais sobre os Inteiros. Até lá!</p>
+
+  
+</article>
+
+
+
+<footer>
+  <div>Made with <b style="color: #f45;">&lt;3</b></div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

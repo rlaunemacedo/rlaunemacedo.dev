@@ -1,0 +1,24 @@
+I"�<p><strong>O que vem a ser um conjunto vazio?</strong></p>
+
+<p>Vamos discutir a noção de conjunto vazio a partir de um exemplo.</p>
+
+<p>Ao lançarmos um dado regular, o conjunto das possibilidades será \(D = \{1, 2, 3, 4, 5, 6\}\), então vamos analisar este outro conunto:</p>
+
+\[W = \{x \in D; x &gt; 6 \}.\]
+
+<p>Em vez de simplesmente definirmos que <code class="language-plaintext highlighter-rouge">um conjunto é uma reunião de elementos</code> (que de certa forma é uma definição um pouco vaga, uma vez que existe o conjunto vazio), vamos definir cojunto a partir de uma propriedade que <code class="language-plaintext highlighter-rouge">seus elementos</code> possam (ou não) <code class="language-plaintext highlighter-rouge">cumprir</code>.</p>
+
+<p>Notemos que o cunjunto \(D\) foi definido arrolando os seus elementos entre chaves, mas poderíamos definí-lo também a partir de uma propriedade, por exemplo</p>
+
+\[D = \{ n \in \Bbb{N}; 1 \leq n \leq 6  \},\]
+
+<p>como foi definido o conjunto \(W\).</p>
+
+<p>Se a propriedade \(P\) (\(P\): “o elemento \(x\) pertence a \(D\) e é maior do que 6”) for definida desta forma será um conjunto. Como não há qualquer \(x\) que cumpra \(P\), podemos escrever</p>
+
+\[W = \{x \in D; x &gt; 6 \} = \{x; x \in P \} = \{ \} = \emptyset. ,\]
+
+<p>Pronto! Como todas as possibilidades do lançamento de um dado regular não superam 6, segue que \(W\) não possui elementos.</p>
+
+<p>Até a próxima!</p>
+:ET

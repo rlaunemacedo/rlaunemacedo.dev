@@ -1,0 +1,8 @@
+I":<p><strong>O que vem a ser um conjunto vazio?</strong></p>
+
+<p>Vamos discutir a noção de conjunto vazio a partir de um exemplo.</p>
+
+<p>Ao lançarmos um dado regular, o conjunto das possibilidades será \(D = \{1, 2, 3, 4, 5, 6\}\), então vamos analisar este outro conunto:</p>
+
+\[W = \{x \in D; x &gt; 6 \}.\]
+:ET

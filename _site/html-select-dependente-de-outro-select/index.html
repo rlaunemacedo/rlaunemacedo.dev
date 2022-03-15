@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<title>Html – Select dependente de outro select | e.rlaune</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Raimundo Nonato Launé macêdo">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/html-select-dependente-de-outro-select/">
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
+ <!-- page.mathjax or site.mathjax %}-->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
+  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/html-select-dependente-de-outro-select/">Html – Select dependente de outro select</a></h1><time datetime="2021-04-30T00:00:00-03:00">April 30, 2021</time>
+</header>
+
+  <p>Muitas pessoas têm dúvidas de como popular as opções de um select dependendo de uma escolha selecionada em um outro select. Nesta abordagem, vamos combinar dois arquivos: o primeiro, conterá <code class="language-plaintext highlighter-rouge">scripts</code> <code class="language-plaintext highlighter-rouge">html</code>, <code class="language-plaintext highlighter-rouge">js</code> e <code class="language-plaintext highlighter-rouge">aJax</code>, e o segundo contará com script <code class="language-plaintext highlighter-rouge">php</code>, <code class="language-plaintext highlighter-rouge">js</code> e <code class="language-plaintext highlighter-rouge">html</code>.</p>
+
+<p>Usaremos como exemplo a situação em que desejamos selecionar um Município relativamente a uma Unidade da Federação (UF) previamente escolhida no primeiro select.</p>
+
+<p>O primeiro aquivo, que diremos principal, será nomeado <code class="language-plaintext highlighter-rouge">arq_principal.php</code> conterá o primeiro select com as opções com quatro unidades da federação:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span> 
+  <span class="nt">&lt;head&gt;</span> 
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">/&gt;</span> http://code.jquery.com/jquery-latest.min.js <span class="nt">&lt;title&gt;</span>Teste<span class="nt">&lt;/title&gt;</span> 
+  <span class="nt">&lt;/head&gt;</span> 
+  <span class="nt">&lt;body&gt;</span> 
+    <span class="nt">&lt;form&gt;</span> 
+      <span class="nt">&lt;div&gt;</span> 
+        <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">'sel_estado'</span> <span class="na">name=</span><span class="s">'estado'</span><span class="nt">&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>MA<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>PI<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>CE<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>PE<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>PA<span class="nt">&lt;/option&gt;</span> 
+        <span class="nt">&lt;/select&gt;</span> 
+      <span class="nt">&lt;/div&gt;</span> 
+      <span class="nt">&lt;div&gt;</span> 
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'div_municipios'</span><span class="nt">&gt;</span> Aqui ficará o select de municípios do estado selecionado. <span class="nt">&lt;/div&gt;</span> 
+      <span class="nt">&lt;/div&gt;</span> 
+    <span class="nt">&lt;/form&gt;</span> 
+  <span class="nt">&lt;/body&gt;</span> 
+<span class="nt">&lt;/html&gt;</span>
+// 
+<span class="nt">&lt;script </span><span class="na">language=</span><span class="s">"JavaScript"</span><span class="nt">&gt;</span> 
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="c1">// Quando o valor do select (id='sel_estado') das uf for alterado </span>
+  <span class="c1">// a função filtra_municipios() será chamada... </span>
+  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">change</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#sel_estado</span><span class="dl">"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span> 
+    <span class="nx">filtra_municipios</span><span class="p">();</span> 
+  <span class="p">});</span> 
+<span class="p">});</span>
+<span class="c1">// </span>
+<span class="kd">function</span> <span class="nx">filtra_municipios</span><span class="p">(){</span> 
+  <span class="nx">estado</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#sel_estado</span><span class="dl">"</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span> 
+  <span class="c1">// Obtém o valor selecionado no select </span>
+  <span class="c1">// Este script ajax remete ao script php filtro_municipios.php com </span>
+  <span class="c1">// passagem de parâmetro uf via POST para tratamento e retorno do </span>
+  <span class="c1">// script html com o select montado com os municípios filtrados. </span>
+  <span class="c1">// Este select tera saída na </span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">'</span><span class="s1">div_municipios</span><span class="dl">'</span><span class="o">&gt;</span> 
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">filtro_municipios.php</span><span class="dl">'</span><span class="p">,</span> 
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span> 
+          <span class="na">data</span><span class="p">:</span> <span class="p">({</span> <span class="na">uf</span><span class="p">:</span> <span class="nx">estado</span> <span class="p">}),</span> 
+       <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span> 
+                      <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#div_municipios</span><span class="dl">"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="p">}</span> 
+          <span class="p">});</span> 
+<span class="p">}</span> 
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+<p>O segundo aquivo, dito secundário, nomearemos de <code class="language-plaintext highlighter-rouge">filtro_municipios.php</code> e conterá o segundo select com os município em uma <code class="language-plaintext highlighter-rouge">array</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span> 
+  <span class="c1">// Obtenção do estado (UF) obtido pela passagem via POST na chamada ajax. $uf = $_POST['uf']; </span>
+  <span class="c1">// Como exemplo temos umaa array contendo três municípios para cada </span>
+  <span class="c1">// um dos cinco estados do primeiro &lt;select&gt; </span>
+  <span class="nv">$municipios</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="p">[</span><span class="s1">'MA'</span><span class="o">=&gt;</span><span class="s1">'São Luís'</span><span class="p">,</span> 
+                        <span class="s1">'PI'</span><span class="o">=&gt;</span><span class="s1">'Teresina'</span><span class="p">,</span> 
+                        <span class="s1">'PE'</span><span class="o">=&gt;</span><span class="s1">'Recife'</span><span class="p">,</span> 
+                        <span class="s1">'CE'</span><span class="o">=&gt;</span><span class="s1">'Fortaleza'</span><span class="p">,</span> 
+                        <span class="s1">'PA'</span><span class="o">=&gt;</span><span class="s1">'Belém'</span><span class="p">],</span> 
+                        <span class="p">[</span><span class="s1">'MA'</span><span class="o">=&gt;</span><span class="s1">'Rosário'</span><span class="p">,</span><span class="s1">'PI'</span><span class="o">=&gt;</span><span class="s1">'Barras'</span><span class="p">,</span><span class="s1">'PE'</span><span class="o">=&gt;</span><span class="s1">'Petrolina'</span><span class="p">,</span><span class="s1">'CE'</span><span class="o">=&gt;</span><span class="s1">'Caucaia'</span><span class="p">,</span><span class="s1">'PA'</span><span class="o">=&gt;</span><span class="s1">'Castanhal'</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">'MA'</span><span class="o">=&gt;</span><span class="s1">'Raposa'</span><span class="p">,</span><span class="s1">'PI'</span><span class="o">=&gt;</span><span class="s1">'Oeiras'</span><span class="p">,</span><span class="s1">'CE'</span><span class="o">=&gt;</span><span class="s1">'Juazeiro'</span><span class="p">,</span><span class="s1">'PE'</span><span class="o">=&gt;</span><span class="s1">'Jaboatão'</span><span class="p">,</span><span class="s1">'PA'</span><span class="o">=&gt;</span><span class="s1">'Capanema'</span><span class="p">]);</span> 
+<span class="cp">?&gt;</span> 
+<span class="c">&lt;!-- Montagem do &lt;select&gt; cujos &lt;option&gt; serão os minicípios filtrados pelo conteúdo em $uf. 
+     O resultado deste script HTML será devolvido à chamada ajax--&gt;</span>
+  <span class="nt">&lt;select&gt;</span> 
+    <span class="cp">&lt;?</span><span class="k">foreach</span><span class="p">(</span><span class="nv">$municipios</span> <span class="k">as</span> <span class="nv">$reg</span><span class="p">){</span> <span class="cp">?&gt;</span> <span class="nt">&lt;option&gt;</span><span class="cp">&lt;?=</span><span class="nv">$reg</span><span class="p">[</span><span class="nv">$uf</span><span class="p">]</span><span class="cp">?&gt;</span><span class="nt">&lt;/option&gt;</span> <span class="cp">&lt;?</span> <span class="p">}</span> <span class="cp">?&gt;</span> 
+  <span class="nt">&lt;/select&gt;</span>
+</code></pre></div></div>
+
+<p>Pronto. Sugerimos que você primeiro experimente este exemplo para ver como funciona e, a partir do seu entendimento, adeque às suas necessidades!</p>
+
+  
+</article>
+
+
+
+<footer>
+  <div>Made with <b style="color: #f45;">&lt;3</b></div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

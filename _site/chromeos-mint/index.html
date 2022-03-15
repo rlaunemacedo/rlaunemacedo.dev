@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<title>ChromeOS-Brunch dual boot com linux | e.rlaune</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Raimundo Nonato Launé macêdo">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/chromeos-mint/">
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
+ <!-- page.mathjax or site.mathjax %}-->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
+  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/chromeos-mint/">ChromeOS-Brunch dual boot com linux</a></h1><time datetime="2021-03-01T00:00:00-03:00">March 01, 2021</time>
+</header>
+
+  <p>Se você já possui o Linux instalado e funcionando em seu computador e quer instalar o Chrome OS, do projeto brunch, em “dual boot”, este tutorial pode ajudá-lo.</p>
+
+<p>O procedimento aqui adotado foi testado em dois notebooks baseados no Intel. Um apenas com Linux Mint 19.3 instalado e outro que já possuía dual boot com a mesma versão do Mint e Windows 10. Nos dois notebooks, utilizamos o terminal de comandos do linux.</p>
+
+<p>Supondo que você já possua alguma habilidade com a criação de partições em HD/SSD com gparted ou outro aplicativo similar, bem como a manipulação de entradas no grub com o grub-customize ou outra forma, não iremos entrar nestes detalhes.</p>
+
+<h3 id="o-processo-de-istalação-consiste-em">O processo de istalação consiste em:</h3>
+<ul>
+  <li>Baixar os arquivos necessários para a instalação do brunch (imagem e o brunch, ambos compactados), aqui iremos referenciá-lo como ChromeOS;</li>
+  <li>Instalação dos utilitários linux necessárias à manipulação de arquivos compactados, edição de grub, manipulação de partições no disco e das ferramentas pv e cgpt;</li>
+  <li>Descompactar o conteúdo dos arquivos baixados em uma pasta criada para tal finalidade;</li>
+  <li>Escolha/criação da partição onde será instalado o ChromeOS;</li>
+  <li>Montagem da partição escolhida em um ponto de montagem;</li>
+  <li>Instalação do ChromeOS; e</li>
+  <li>Inclusão da entrada no menu do grub.</li>
+</ul>
+
+<h3 id="então-vamos-começar">Então vamos começar</h3>
+
+<h4 id="cromeosbrunch">CromeOS/Brunch</h4>
+<p>Baixar a imagem de recuperação do CromeOS e o lançamento Brunch, ambos com a mesma versão, por exemplo em nosso caso, instalamos a versão 94. 
+Links:</p>
+<ul>
+  <li><a href="https://chromiumdash.appspot.com/serving-builds">Imagem ChromeOS</a></li>
+  <li><a href="https://github.com/sebanc/brunch/releases">Brunch</a></li>
+</ul>
+
+<h4 id="pv-cgpt-tar-e-unzip">pv, cgpt, tar, e unzip</h4>
+<p>Certifique-se de já ter instalado estes programas aqui, pois necessários:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt -y install pv cgpt tar unzip
+</code></pre></div></div>
+<h4 id="organização-dos-arquivos-já-descompactados-em-uma-pasta">Organização dos arquivos já descompactados em uma pasta</h4>
+<p>Devemos criar uma pasta para colocar os aquivos necessários à instalação do ChromeOS. Para efeitos deste artigo, criaremos a pasta <code class="language-plaintext highlighter-rouge">Chomeos</code> em <code class="language-plaintext highlighter-rouge">Downloads</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/Dowloads/Chromeos
+</code></pre></div></div>
+<p>Extrair o conteúdos dos arquivos baixados para a pasta recém criada. Renomear o arquivo com extensão .bin para rammus_recovery.bin (este será o único arquivo a ser renomeado). Ao final, deveremos ter os cinco arquivos desta lista:</p>
+
+<ul>
+  <li>chromeos-install.sh</li>
+  <li>efi_legacy.img</li>
+  <li>efi_secure.img</li>
+  <li>rammus_recovery.bin</li>
+  <li>rootc.img</li>
+</ul>
+
+<h4 id="partição-para-instalação-do-chromeos">Partição para instalação do ChromeOS</h4>
+<p>Neste ponto você deverá escolher ou criar a partição na qual o ChromeOS será instalado. A partição não poderá ter tamanho inferio a 16GB. (sugestão 30GB). Caso não exista, use o gparted para determinar a partição e formate-a como ext4 ou ntfs. Sugerimos ext4.</p>
+
+<p>Certifique-se de ter instalado o gparted com o comando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt -y install gparted
+</code></pre></div></div>
+<p>Verificando as partições existentes (opcional)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk -e7
+</code></pre></div></div>
+
+<h4 id="montagem-da-partição">Montagem da partição</h4>
+<p>Uma vez escolhida a partição que receberá o ChromeOS, devemos montá-la para iniciarmos a instalação. Primeiro criaremos um local de montagem e depois montaremos a partição neste ponto. Para efeito deste artigo, como exemplo, utilizaremos a partição <code class="language-plaintext highlighter-rouge">sda5</code>. (Nota: No comando mount, NÃO esqueça de substituir a partição para o seu caso em particular):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/tmpmount
+sudo mount /dev/sda5 ~/tmpmount
+</code></pre></div></div>
+<h4 id="instalação">Instalação</h4>
+<p>Motada a partição de destino, vamos instalar o ChromeOS. Para tanto, vamos nos posicionar na pasta onde estão os arquivos que baixamos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/Downloads/Chromeos 
+sudo bash chromeos-install.sh -src rammus_recovery.bin -dst ~/tmpmount/chromeos.img -s 30
+</code></pre></div></div>
+<p>O script pedirá confirmação. Se você estiver pronto para instalar, digite <code class="language-plaintext highlighter-rouge">yes</code> para confirmar.</p>
+
+<h4 id="inclusão-no-menu-do-grub">Inclusão no menu do grub</h4>
+<p>Vamos sugerir a utilização do grub-customize para esta finalidade.</p>
+
+<p>“Script” sugerido para entrada do grub (Nota: lembre de alterar <code class="language-plaintext highlighter-rouge">sda5</code> para a partição que você escolheu/criou anteriormente!):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rmmod tpm
+img_part=/dev/sda5
+img_path=/chromeos.img
+search --no-floppy --set=root --file $img_path
+loopback loop $img_path
+linux (loop,7)/kernel boot=local noresume noswap loglevel=7 disablevmx=off  \
+	cros_secure cros_debug options= loop.max_part=16 img_part=$img_part img_path=$img_path \
+	console= vt.global_cursor_default=0 brunch_bootsplash=default
+initrd (loop,7)/lib/firmware/amd-ucode.img (loop,7)/lib/firmware/intel-ucode.img (loop,7)/initramfs.img
+</code></pre></div></div>
+<h5 id="grub-customize">grub-customize</h5>
+<ul>
+  <li>No menu “Editar” do grub-customize, opte por “Novo”;</li>
+  <li>Na janela “Editor de Entradas – Grub Customizer”, dê um nome para a entrada (Exemplo: ChromeOS) e, para tipo, escolha “Outro”;</li>
+  <li>Copie o “script” acima neste tutorial e cole na caixa de textos da janela “Editor de Entradas – Grub Customizer”;</li>
+  <li>Com todos os campos preenchidos na janela “Editor de Entradas – Grub Customizer”, pressione o botão “OK” e a janela irá se fechar;</li>
+  <li>De volta à janela anterior do Grub Customize, pressione o botão salvar</li>
+</ul>
+
+<h4 id="desmontando-a-partição">Desmontando a partição</h4>
+<p>Agora você já pode desmontar a partição com o comando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo umount ~/tmpmount
+</code></pre></div></div>
+<p>Pronto, agora você já pode reiniciar o computador e no menu do grub selecione a entrada ChromeOS. Da primeira vez demorará um pouco e você será convidado a fornecer as informações da nova máquina Chrome OS.</p>
+
+<hr />
+<p>Fonte: <a href="https://github.com/sebanc/brunch/blob/master/install-with-linux.md">github.com/sebanc/brunch</a>
+(seção: Dualboot installations).</p>
+
+  
+</article>
+
+
+
+<footer>
+  <div>Made with <b style="color: #f45;">&lt;3</b></div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="pt-BR"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="pt-BR" /><updated>2022-03-15T09:00:30-03:00</updated><id>/feed.xml</id><title type="html">e.rlaune</title><subtitle>Made with &lt;b style=&quot;color: #f45;&quot;&gt;&amp;lt;3&lt;/b&gt;</subtitle><author><name>R N Launé Macêdo</name></author><entry><title type="html">A simplicidade das coisas</title><link href="/a-simplicidade-das-coisas/" rel="alternate" type="text/html" title="A simplicidade das coisas" /><published>2021-10-25T00:00:00-03:00</published><updated>2021-10-25T00:00:00-03:00</updated><id>/a-simplicidade-das-coisas</id><content type="html" xml:base="/a-simplicidade-das-coisas/"><![CDATA[<p>Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora.</p>
+
+<p>A proximidade que nos referimos anteriormente é aquela que se usa para sistematizar os conceitos já impregnados em nós mesmo. É assim que, o aprendiz associa a palavra “casa” ao conceito associado a ela – o objeto casa ou a abstração lar. Assim, poderemos associar casa e beleza; a casa e a posse dela; casa e a quantidade delas, por exemplo, existente em uma rua – rua também é outro conceito familiar. O que se apreende destas arrumações são as sistematizações, nascem as formalidades. É mais bonito dizer “casa bonita” do que “bonito casa”.</p>
+
+<p>Das quantidades nascem um princípio elementar para a construção de uma das mais belas sistematizações da humanidade a Matemática. Nasce da forma mais bela e simples colocar, agregar, retirar, diminuir, retirar tudo, … tudo simples. Mas, assim como a capacidade de abstrair coisas e situações vai aumentando naquele que se dedica à sistematização das coisas, vão aumentado também o distanciamento da realidade simples e localmente observada no dia a dia.</p>
+
+<blockquote>
+  <p>A curiosidade dá asas à investigação! É esta curiosidade que nos faz perguntar: E se não fosse assim…? O que aconteceria se…? É possível que…? Poderíamos dizer então que…? Então poderíamos ter situações em que…? Então eu poderia classificar este grupo em…?</p>
+</blockquote>
+
+<p>Nem sempre encontraremos todas as respostas, mas o conhecimento gerado ao longo da incansável procura é incomensurável.</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora. A proximidade que nos referimos anteriormente é aquela que se usa para sistematizar os conceitos já impregnados em nós mesmo. É assim que, o aprendiz associa a palavra “casa” ao conceito associado a ela – o objeto casa ou a abstração lar. Assim, poderemos associar casa e beleza; a casa e a posse dela; casa e a quantidade delas, por exemplo, existente em uma rua – rua também é outro conceito familiar. O que se apreende destas arrumações são as sistematizações, nascem as formalidades. É mais bonito dizer “casa bonita” do que “bonito casa”.]]></summary></entry><entry><title type="html">Montagem de partições internas no ChromeOS/Brunch</title><link href="/montagem-de-particoes-internas-no-chromeos-brunch/" rel="alternate" type="text/html" title="Montagem de partições internas no ChromeOS/Brunch" /><published>2021-10-25T00:00:00-03:00</published><updated>2021-10-25T00:00:00-03:00</updated><id>/montagem-de-particoes-internas-no-chromeos-brunch</id><content type="html" xml:base="/montagem-de-particoes-internas-no-chromeos-brunch/"><![CDATA[<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
+
+<p>A sugestão é, em vez de editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code>, você criar um novo em local diferente <code class="language-plaintext highlighter-rouge">/usr/local/fstab</code> que poderá ser editado no Chrome OS mais tarde.</p>
+
+<p><strong>Partições internas montáveis no disco</strong></p>
+
+<p>Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os <code class="language-plaintext highlighter-rouge">IDs</code> do dispositivo usando vários métodos. Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o seguinte comando:</p>
+
+<p>Para verificar as partições montáveis no HDD, abra o <code class="language-plaintext highlighter-rouge">CROSH</code> (ctrl+alt+T) e execute os comandos:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shell
+<span class="nb">sudo</span> /sbin/blkid <span class="nt">-o</span> full | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^/dev/sd.*TYPE"</span> | <span class="nb">grep</span> <span class="nt">-vE</span> <span class="s2">"EFI|STATE|ROOT-A"</span>
+</code></pre></div></div>
+<p>Neste ponto você terá uma lista de partições montáveis (meu caso, por exemplo):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1: <span class="nv">UUID</span><span class="o">=</span><span class="s2">"72FB-DEFB"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"512"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"vfat"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"0538aab4-ffd6-49cd-a555-3f08ef2124ec"</span>
+/dev/sda2: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"Mint19.3"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"833aae96-3d32-41ee-b5ea-99a959506114"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"Mint19.3"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"454a609f-6711-481f-ad00-c7328cf99ae7"</span>
+/dev/sda3: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"ChromeOS"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"512"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"284A910B20CA3FF7"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ntfs"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"ChromeOS"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"c36e518b-455c-4d52-859c-9c0cd9328649"</span>
+/dev/sda4: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"rootMX19"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"3d274ab4-da97-4d66-a447-6ab1d337beef"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"MX19"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"82b570a9-76c0-4b71-b093-b2baeaa0e75c"</span>
+/dev/sda5: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"DadosSSD"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"2bf709a6-dccd-4da9-932f-7fe67bed0fd2"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"DadosSSD"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"21bc6803-de42-454b-a9c6-4e6045427108"</span>
+</code></pre></div></div>
+
+<p>Tome nota das partições que você quer montar automaticamente (no nosso caso, por exemplo, montamos apenas <code class="language-plaintext highlighter-rouge">/dev/sda5</code>).</p>
+
+<p><strong>Ponto de montagem da partição</strong></p>
+
+<p>Importante observar que a pasta ~/Dowloads é montada em local específico para cada usuário e depende da versão do Chrome OS. Para descobrir o seu local em particular, execute o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> /home/<span class="nv">$USER</span>/u-<span class="nv">$CROS_USER_ID_HASH</span>/MyFiles/Downloads
+</code></pre></div></div>
+
+<p>Se você estiver utilizando uma versão do Chrome OS não superior à 78, deverá utilizar:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> /home/<span class="nv">$USER</span>/u-<span class="nv">$CROS_USER_ID_HASH</span>/Downloads
+</code></pre></div></div>
+<p>Você obterá como resposta algo do tipo (meu caso):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads
+</code></pre></div></div>
+
+<p><strong>Estrutura do arquivo fstab</strong></p>
+
+<p>Está claro que para cada partição, que você queira montar, deverá existir um ponto de montagem. Assim, o arquivo fstab deverá ter a seguinte estrutura (por exemplo):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome1 auto default 0 0
+/dev/sda2 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome2 auto default 0 0
+/dev/sda3 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome3 auto default 0 0
+</code></pre></div></div>
+
+<p><strong>Criação do arquivo /usr/local/fstab</strong></p>
+
+<p>Para criar o arquivo /usr/local/fstab, execute o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vim /usr/local/fstab
+</code></pre></div></div>
+
+<p>Adicione a este arquivo as linhas de montagens conforme as suas necessidades, seguindo a estrutura acima e salve-o. No nosso caso:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda5 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Dados auto defaults 0 0
+</code></pre></div></div>
+
+<p>Observe que nós montamos apenas a partição sda5 e terá como ponto de montagem ~/MyFiles/Downloads/Dados.</p>
+
+<blockquote>
+  <p><strong>Nota:</strong> 
+ Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando</p>
+
+  <p>echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads.</p>
+</blockquote>
+
+<p><strong>Configuração final</strong></p>
+
+<p>Uma vez criado e editado o arquivo fstab, baixe e salve o arquivo 
+<a href="https://raw.githubusercontent.com/MuntashirAkon/Chrome-OS-Multiboot/master/mount-internals.conf">mount-internals.conf</a> em ~/Dowloads.
+Monte a partição root para escrita com o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mount <span class="nt">-o</span> rw,remount /
+</code></pre></div></div>
+
+<p>Finalmente copie o arquivo mount-internals.conf recém baixado para /etc/init/ com o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo cp</span> ~/Downloads/mount-internals.conf /etc/init/
+</code></pre></div></div>
+
+<p>Pronto! Agora você poderá reiniciar seu Chrome.</p>
+
+<hr />
+<p>Fonte: 
+<a href="https://github.com/MuntashirAkon/Chrome-OS-Multiboot/">https://github.com/MuntashirAkon/Chrome-OS-Multiboot/</a></p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><category term="brunch" /><category term="ChromeOS" /><category term="montagem" /><category term="mount" /><category term="partições" /><summary type="html"><![CDATA[Como você já deve ter notado, as partições internas do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar /etc/fstab depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta ~/Downloads para que você possa acessar essas partições de lá.]]></summary></entry><entry><title type="html">As operações e os conjuntos – III</title><link href="/as-operacoes-e-os-conjuntos-iii/" rel="alternate" type="text/html" title="As operações e os conjuntos – III" /><published>2021-05-03T00:00:00-03:00</published><updated>2021-05-03T00:00:00-03:00</updated><id>/as-operacoes-e-os-conjuntos-iii</id><content type="html" xml:base="/as-operacoes-e-os-conjuntos-iii/"><![CDATA[<p>No artigo anterior, nós tratamos sobre o conjunto dos números naturais, fizemos algumas operações de contagem e dissemos que \(\mathbb{N}\) é fechado em relação à adição e também em relação à multiplicação. No entanto, não pudemos afirmar a mesma coisa em relação à subtração.</p>
+
+<p>Claro que um problema do tipo \(130 - 300\) terá uma solução e, neste caso, é \(-70\). Mas se \(-70\) não está em \(\Bbb{N}\), qual conjunto conterá tais números?</p>
+
+<p>Em <code class="language-plaintext highlighter-rouge">complemento</code> aos Naturais, apresentamos o Conjunto do Números Inteiros Relativos ao Zero, ou simplesmente os Inteiros, que é representado pela letra maiúscula, também estilizada zê: \(\Bbb{Z}\). Que pode ser assim apresentado:</p>
+
+\[\Bbb{Z} = \{..., -3, -2, -1, 0, +1, +2, +3, ...\}.\]
+
+<p>Vê-se que o zero não possui sinal por ser neutro. Usualmente não se colocam os sinais de mais nos números positivos, assim</p>
+
+\[\Bbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\}.\]
+
+<p>Vemos então que a solução do problema anterior tem agora <code class="language-plaintext highlighter-rouge">cobertura</code>: \(-70 \in \Bbb{Z}\). Mais do que isso:</p>
+
+\[\{0, 1, 2, 3, ...\} \subset \{..., -3, -2, -1, 0, 1, 2, 3, ...\},\]
+
+<p>ou seja, os Naturais constituem um subconjunto dos Inteiros. Em símbolos, \(\Bbb{N} \subset \Bbb{Z}\).</p>
+
+<p>Logo \(\Bbb{Z}\) cobre, até agora, a solução de todos os nossos problemas.</p>
+
+<h2 id="um-pouco-mais-sobre-os-inteiros">Um pouco mais sobre os Inteiros</h2>
+
+<h3 id="alguns-subconjuntos">Alguns subconjuntos</h3>
+
+<p>Dado que todo conjunto é subconjunto de si próprio, temos que</p>
+
+\[\Bbb{Z} = \{..., -3, -2, -1, 0, 1, 2, 3, ...\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros não nulos</p>
+
+\[\Bbb{Z}^* = \{..., -3, -2, -1, 1, 2, 3, ...\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros não negativos</p>
+
+\[\Bbb{Z}_+ = \{0, 1, 2, 3, ...\} = \Bbb{N} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros positivos</p>
+
+\[\Bbb{Z}_+^* = \{1, 2, 3, 4, ...\} = \Bbb{N}^* \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros não positivos</p>
+
+\[\Bbb{Z}_- = \{..., -3, -2, -1, 0\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros negativos</p>
+
+\[\Bbb{Z}_-^* = \{..., -4, -3, -2, -1\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Inteiros pares</p>
+
+\[\{2k; k \in \Bbb{Z}\} = \{..., -6, -4, -2, 0, 2, 4, 6, ...\} \subset \Bbb{Z}.\]
+
+<p>Conjunto dos Naturais ímpares</p>
+
+\[\{2k+1; k \in \Bbb{Z}\} = \{..., -5, -3, -1, 1, 3, 5, 7, ...\} \subset \Bbb{Z}.\]
+
+<h3 id="relação-de-ordem">Relação de ordem</h3>
+
+<p>Para todo \(z \in \Bbb{Z}\), teremos sempre que \(z \lt z+1\) (equivalentemente \(z-1 \lt z\)). É o mesmo que escrever</p>
+
+<p>\(... \lt -3 \lt -2 \lt -1 \lt 0 \lt 1 \lt 2 \lt 3 \lt ...\).</p>
+
+<h3 id="operações-com-os-inteiros">Operações com os Inteiros</h3>
+
+<p>Vimos que os Naturais também são Inteiros, logo já temos que \(\Bbb{Z}\) é fechado em relação à adição e à multiplicação. Ótimo!</p>
+
+<p>Nos próximos problemas, para efeitos didáticos, associaremos quando for possível aos números inteiros positivos o termo <code class="language-plaintext highlighter-rouge">crédito</code>, da mesma forma aos negativos o termo <code class="language-plaintext highlighter-rouge">débito</code>.</p>
+
+<p><strong>Situação 1:</strong> Antônio precisa adquirir um bem no valor de R$ 165,00. Como no momento presente não estava com esse dinheiro à disposição, resolveu tomar emprestado com sua cunhada Marta esta quantia. Recebido o empréstimo, Antônio fez a compra. No final da semana Antônio recebeu um adiantamento e pagou a Marta a quantia de R$ 100,00.</p>
+
+<p><strong>Indagação</strong> Antônio liquidou (mesmo que zerar) seu empréstimo com Marta?</p>
+
+<p>Claro que não! Como devemos expor o problema matematicamente?</p>
+
+\[-165 + 100 = -65\]
+
+<p>Interpretação: Deve 165 e credito de 100. Ficou devendo 65.</p>
+
+<p>Podeŕamos também escrever</p>
+
+\[+100 - 165 = -65\]
+
+<p>ou</p>
+
+\[100 - 165 = -65\]
+
+<p>Interpretação: Tem um crédito de 100, porém deve 165. Ficou devendo 65.</p>
+
+<p>Em todos os casos, o resultado é -65. Ou seja, após a efetização de todas as transações, ainda possui um débito de R$ 65,00.</p>
+
+<p>Toda vez que o total de créditos é menor que o total de débitos, ainda restará débito!</p>
+
+<h4 id="faça-você-mesmo">Faça você mesmo!</h4>
+
+\[\begin{align}
+  \tag{Ex:1}
+  40 - 60 +50 - 70 +60 -80 = -60.
+\end{align}\]
+
+<p>O que temos aqui: Somando todos os créditos, temos (+150) e somando-se todos os débitos, obtemos (-210), logo é normal que operando as transações, reste um débito de 60.</p>
+
+<p>Como interpretaríamos a expressão (Ex:1)?</p>
+
+<p>Imagine que você opera com um credor, sua conta esta zerada e faz as seguintes transações:</p>
+<ul>
+  <li>Certo dia credita R$ 40,00;</li>
+  <li>Depois toma emprestado R$ 60,00;</li>
+  <li>Em outro dia faz um depósito de R$ 50,00;</li>
+  <li>Volta e faz um débito de R$ 70,00;</li>
+  <li>Volta a fazer um depósito de R$ 60,00;</li>
+  <li>Em outro dia faz um débito de R$ 80,00.</li>
+</ul>
+
+<p>Simples de entender o fato da conta estar no vermelho e com débito de R$ 60,00.</p>
+
+<p>No próximo artigo continuaremos tratando um pouco mais sobre os Inteiros. Até lá!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[No artigo anterior, nós tratamos sobre o conjunto dos números naturais, fizemos algumas operações de contagem e dissemos que \(\mathbb{N}\) é fechado em relação à adição e também em relação à multiplicação. No entanto, não pudemos afirmar a mesma coisa em relação à subtração.]]></summary></entry><entry><title type="html">As operações e os conjuntos – IV</title><link href="/as-operacoes-e-os-conjuntos-iv/" rel="alternate" type="text/html" title="As operações e os conjuntos – IV" /><published>2021-05-03T00:00:00-03:00</published><updated>2021-05-03T00:00:00-03:00</updated><id>/as-operacoes-e-os-conjuntos-iv</id><content type="html" xml:base="/as-operacoes-e-os-conjuntos-iv/"><![CDATA[<p>Continuaremos tratando sobre os Inteitos. Há bastante coisas a serem compreendidas e desmistificadas. Muitas expressões aparecem com os Inteiros, à primeira vista, com um nível de complexidade alarmante. Primeiro, a partir de fragmentos simples, precisamos compreender por que determinadas igualdade são asseguradas como líquidas. Por exemplo, como compreender a seguite igualdade?</p>
+
+\[(-1) \times (-5) = -(-5) = +5 = 5.\]
+
+<p>É sobre estas e outras coisas que trataremos neste artigo.</p>
+
+<p>Coisas do tipo <code class="language-plaintext highlighter-rouge">jogos de sinais</code>, difundidas sem limites, precisam ser colocadas (ou substituídas) de forma séria. Afinal de contas a Matemática não é um tabuleiro onde se jogam com os sinais.</p>
+
+<h4 id="adição-subtração-multiplicação-e-divisão">Adição, subtração, multiplicação e divisão</h4>
+
+<p>A adição de números inteiros se dá respeitando os sinais dos números. Na verdade, como veremos mais tarde, será assim para qualquer número real. (O conjunto dos números Reais, é onde queremos chegar com estes artigos!).</p>
+
+<p>Importante ressaltar que estas quatro operações são do tipo binária. Ou seja, para cada par de números \(x\) e \(y\), buscamos \(x + y\), \(x - y\), \(x \times y\) ou \(x \div y\), neste último caso, teremos sempre garantir que \(y \neq 0\), para que a divisão tenha sentido.</p>
+
+<p>Retomando o exemplo do artigo anterior anterior.</p>
+
+\[\begin{align}
+  \tag{Ex:1}
+  40 - 60 +50 - 70 +60 -80 = -60.
+\end{align}\]
+
+<p>Que escreveremos assim</p>
+
+\[\begin{align}
+  \tag{Ex:2}
+  (+40) + (-60) + (+50) + (- 70) + (+60) + (-80) = (-60).
+\end{align}\]
+
+<p>Na expressão (Ex:2) fizemos questão de colocar o sinal e envolver cada um dos números entre parêntesis. Como estamos falando em adição, o equivalente da expressão (Ex:1) é o que temos em (Ex:2). Muito bem!</p>
+
+<p>Como dissemos antes, somando todos os créditos e todos os débitos, teremos</p>
+
+\[\begin{align}
+  \tag{Ex:3}
+  (+150) + (-210) = (-60).
+\end{align}\]
+
+<p>Diremos então que um crédito de 150 <code class="language-plaintext highlighter-rouge">mais</code> um débito de 210 é o equivalente a um débito de 60. Da mesma forma, um débito de 210 mais um crédito de 150 é equivalente a um débito de 60</p>
+
+\[\begin{align}
+  \tag{Ex:4}
+  (-210) + (+150) = (-60).
+\end{align}\]
+
+<p>Agora vamos analisar esta expressão:</p>
+
+\[\begin{align}
+  \tag{Ex:5}
+  (-40) + (+60) + (-50) + (+70) + (-60) + (+80) = (+60).
+\end{align}\]
+
+<p>Como antes, vamos somar separadamente todos os créditos e os débitos, e teremos</p>
+
+\[\begin{align}
+  \tag{Ex:6}
+  (-150) + (+210) = (+60).
+\end{align}\]
+
+<p>Agora, porque a soma dos crédito é maior que a soma dos débitos, o equivalente da adição dos dois deum um crédito. O que era de se esperar.</p>
+
+<p>Devemos observar que o que temos feito sempre é <code class="language-plaintext highlighter-rouge">somar</code> separadamente os números que possuem o mesmo sinal e só então, ao final, vermos a <code class="language-plaintext highlighter-rouge">diferença</code> entre os números de sinais opostos. O sinal da resposta será:</p>
+<ul>
+  <li>se o débito for maior que o crédito, então teremos um débito, logo, sinal negativo (\(-\)); e</li>
+  <li>se o crédito for maior que o débito, então teremos um crédito, logo, sinal positivo (\(+\)).</li>
+</ul>
+
+<p>Para sintetizarmos o que vimos até agora, vamos relembrar o conceito de <code class="language-plaintext highlighter-rouge">valor absoluto</code> (\(Abs() ou | . |\)) de um número. Sobre os termos créditos e déitos, poderíamos escrever:</p>
+<ul>
+  <li>Valor absoluto do crédito</li>
+</ul>
+
+\[Abs(+130) = |+130| = 130;\]
+
+<ul>
+  <li>Valor absoluto do débito</li>
+</ul>
+
+\[Abs(-130) = |-130| = 130.\]
+
+<p>Assim, o valor absoluto de um número é sempre um número positivo.</p>
+
+<p>Agora podemos sintetizar o que vimos anteriormente sobre a adição de números inteiros da seguinte forma:</p>
+
+<ul>
+  <li>Na adição de dois números de <code class="language-plaintext highlighter-rouge">mesmo sinal</code>, a soma terá sempre o <code class="language-plaintext highlighter-rouge">sinal das parcelas</code>.</li>
+</ul>
+
+\[(+2)+(+5)=(+7)\]
+
+\[(-3)+(-6)=(-9).\]
+
+<ul>
+  <li>Na adição de dois números de <code class="language-plaintext highlighter-rouge">sinais opostos</code>, a soma terá sempre o sinal da <code class="language-plaintext highlighter-rouge">parcela de maior valor absoluto</code>.</li>
+</ul>
+
+\[(-2)+(+5)=(+3)\]
+
+\[(+3)+(-7)=(-4).\]
+
+<h2 id="tome-nota">Tome nota</h2>
+<ol>
+  <li>O nome da operação é <code class="language-plaintext highlighter-rouge">adição</code>, o que estamos adicionando chamamos de <code class="language-plaintext highlighter-rouge">parcelas</code> e o resultado de uma adição chamamos de <code class="language-plaintext highlighter-rouge">soma</code>.</li>
+  <li>Quando os números têm o mesmo sinal, de fato, nós realizamos uma adição das parcelas, respeitando o sinal delas na soma.</li>
+  <li>Quando os números têm sinais opostos, nós calculamos é a diferença entre os valores absolutos e colocamos o sinal do maior deles na soma.</li>
+</ol>
+
+<p>Tudo em conformidade com o que estudamos até o presente momento.</p>
+
+<p>No próximo artigo, daremos continuidade a este estudo sobre as operações com os Inteiros. Até la!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Continuaremos tratando sobre os Inteitos. Há bastante coisas a serem compreendidas e desmistificadas. Muitas expressões aparecem com os Inteiros, à primeira vista, com um nível de complexidade alarmante. Primeiro, a partir de fragmentos simples, precisamos compreender por que determinadas igualdade são asseguradas como líquidas. Por exemplo, como compreender a seguite igualdade? \[(-1) \times (-5) = -(-5) = +5 = 5.\] É sobre estas e outras coisas que trataremos neste artigo.]]></summary></entry><entry><title type="html">As operações e os conjuntos – II</title><link href="/as-operacoes-e-os-conjuntos-ii/" rel="alternate" type="text/html" title="As operações e os conjuntos – II" /><published>2021-05-02T00:00:00-03:00</published><updated>2021-05-02T00:00:00-03:00</updated><id>/as-operacoes-e-os-conjuntos-ii</id><content type="html" xml:base="/as-operacoes-e-os-conjuntos-ii/"><![CDATA[<p>Neste artigo abordaremos sobre quais operações o conjunto dos números naturais oferece <code class="language-plaintext highlighter-rouge">suporte</code>. Ou ainda, como foi dito no artigo anterior, para quais operações \(\Bbb{N}\) é fechado.</p>
+
+<p>No primeiro artigo desta série, nós revimos alguns conceitos sobre os conjuntos, inclusive apresentamos sutilmente o primeiro conjunto numérico do nosso interesse, nomeadamente o conjunto dos números naturais, que é representado pela letra ene maiúscula <code class="language-plaintext highlighter-rouge">estilizada</code> \(\Bbb{N}\).</p>
+
+<h2 id="um-pouco-mais-sobre-os-naturais">Um pouco mais sobre os Naturais</h2>
+
+<h3 id="alguns-subconjuntos-dos-natutais">Alguns subconjuntos dos Natutais</h3>
+
+<p>Dado que todo conjunto é subconjunto de si próprio,</p>
+
+\[\Bbb{N} = \{0, 1, 2, 3, ...\} \subset \Bbb{N}.\]
+
+<p>Conjunto dos Naturais não nulos</p>
+
+\[\Bbb{N}^* = \{1, 2, 3, ...\} \subset \Bbb{N}.\]
+
+<p>Conjunto dos Naturais pares</p>
+
+\[\{2k; k \in \Bbb{N}\} = \{0, 2, 4, 6, ...\} \subset \Bbb{N}.\]
+
+<p>Conjunto dos Naturais ímpares</p>
+
+\[\{2k+1; k \in \Bbb{N}\} = \{1, 3, 5, 7, ...\} \subset \Bbb{N}.\]
+
+<h3 id="relação-de-ordem">Relação de ordem</h3>
+
+<p>Para todo \(n \in \Bbb{N}\), teremos sempre que \(n \lt n+1\). É o mesmo que escrever</p>
+
+\[0 \lt 1 \lt 2 \lt 3 \lt ...\]
+
+<blockquote>
+
+  <p>Uma observação sobre as notações de inclusão e de ordem. Melhor que dar nomes para as notações \(&lt;, \leq, \geq\) e \(&gt;\), é entender o seu desenho. A abertura estará sempre para o lado que se julga maior. A mesma ideia está nas notações \(\subset, \subseteq, \supseteq\) e \(\supset\).</p>
+
+  <p>Por exemplo, escrever que \(2 \lt 5\) tem o mesmo interpretação de que \(5 \gt 2\), assim como, \(x \lt 9\) tem o mesmo significado de \(9 \gt x\). Da mesma forma para conjuntos, escrever \(\{0, 1, 2, 3\} \subset \Bbb{N}\), tem o mesmo significado que \(\Bbb{N} \supset \{0, 1, 2, 3\}\). Em última análise, muda-se apenas a forma de ler ou a ordem de importâcia do objeto em cada caso.</p>
+</blockquote>
+
+<h3 id="os-naturais-e-a-contagem">Os Naturais e a contagem</h3>
+
+<p>Desde os tempos mais remotos as pessoas se deparavam com a necessidade de contar… É assim que os criadores de ovelhas, por exemplo, precisavam constantemente verificar o tamanho do seu rebanho. O problema de ontem e de hoje cons iste em <code class="language-plaintext highlighter-rouge">contar</code> quantas ovelhas saem para o pasto e quntas retornam ao final de em dado período de tempo. Nada anormal que sejam observados acréscimos ou perdas.</p>
+
+<p>O resultado obtido pela contagem na saída ao pasto e, da mesma forma, o do retorno é associado um número. Asseguramos que esse número é um número natural.</p>
+
+<p>Claro que se não havia o que contar, <code class="language-plaintext highlighter-rouge">nada</code> era registrado. Com o passar do tempo, certamente este nada passou a ser registrado como <code class="language-plaintext highlighter-rouge">zero</code>. Vale registrar que alguns autores não consideram o zero como um número natural, outros sim. Neste estudo iremos considerar zero um número natural.</p>
+
+<h3 id="operações-com-os-naturais">Operações com os Naturais</h3>
+
+<h4 id="adição-subtração-e-multiplicação">Adição, subtração e multiplicação</h4>
+
+<p>Suponha que um proprietário tenha contado seu rebanho de ovelhas antes do pastor levá-lo ao pasto e que registrou 302 cabeças. Quando do retorno do pasto (que pode levar dias), fez a contagem e <code class="language-plaintext highlighter-rouge">deduziu</code> que haviam 15 cabeças a mais como resultado do nascimento novos animaizinhos e agora já haviam 317 cabeças.</p>
+
+<p>Remotamente, não se sabe precisar como seria feita esta dedução. Por um cálculo simples faríamos</p>
+
+\[302 + 15 = 317\]
+
+\[317 - 302 = 15.\]
+
+<p>Com o passar do tempo, com a evolução do vocabulário, poderíamos ter a seguinte situação: O proprietário saiu com 120 cabeças para negociar no mercado de ovelhas e, entre trocas, vendas e aquisições, viu que seu rebanho havia duplicado ao retornar. O cálculo poderia ser registrado de forma simples assim</p>
+
+\[2 \times 120 = 240.\]
+
+<p>Bons tempos!</p>
+
+<p>Agora vamos imaginhar uma situação meio exótica em que um calculista das épocas remotas auxiliava os negócios mais complicados no mecado de ovelhas.</p>
+
+<p>A situação: Um certo proprietário havia levado ao mercado 130 cabeças de ovelhas, vendeu tudo a um mercador e recebeu o dinheiro de um total de 200 cabeças, sendo que e o restante das ovelhas deveria ser entregue no dia de feira da semana seguinte. Se o calculista tivesse registrado</p>
+
+\[200 - 130 = 70\]
+
+<p>Teria que registrar em algum lugar que havia uma dívida de 70 ovelhas.</p>
+
+<p>Mas se tivesse registrado</p>
+
+\[130 - 200 = ??,\]
+
+<p>qual seria a resposta?</p>
+
+<p>A constatação é a que se o tal calculista só conhecesse os números naturais, talvez nem escrevesse este absurdo! De fato não há número natural para expressar este resultado.</p>
+
+<h2 id="tome-nota">Tome nota</h2>
+
+<ul>
+  <li>
+    <p>O conjunto \(\Bbb{N}\) é fechado em relação a operação de adição, pois para quaisquer que sejam os números naturais \(m,n \in \Bbb{N}\), temos \(m + n \in \Bbb{N}\).</p>
+  </li>
+  <li>
+    <p>O conjunto \(\Bbb{N}\) é fechado em relação a operação de multiplicação, pois para quaisquer que sejam os números naturais \(m,n \in \Bbb{N}\), temos \(m \times n \in \Bbb{N}\).</p>
+  </li>
+  <li>
+    <p>O conjunto \(\Bbb{N}\) NÃO é fechado em relação a operação de subtração, pois \(5\) e \(6\) são naturais, porém \(5 - 6 \notin \Bbb{N}\).</p>
+  </li>
+</ul>
+
+<p>Mas nós não poderemos realizar esta operação \(130 - 300?\)</p>
+
+<p>Trataremos desta e de outras situações nos próximos artigos!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Neste artigo abordaremos sobre quais operações o conjunto dos números naturais oferece suporte. Ou ainda, como foi dito no artigo anterior, para quais operações \(\Bbb{N}\) é fechado. No primeiro artigo desta série, nós revimos alguns conceitos sobre os conjuntos, inclusive apresentamos sutilmente o primeiro conjunto numérico do nosso interesse, nomeadamente o conjunto dos números naturais, que é representado pela letra ene maiúscula estilizada \(\Bbb{N}\).]]></summary></entry><entry><title type="html">A solução e o algoritmo</title><link href="/a-solucao-e-o-algoritmo/" rel="alternate" type="text/html" title="A solução e o algoritmo" /><published>2021-05-01T00:00:00-03:00</published><updated>2021-05-01T00:00:00-03:00</updated><id>/a-solucao-e-o-algoritmo</id><content type="html" xml:base="/a-solucao-e-o-algoritmo/"><![CDATA[<p>Em geral, para se resolver um determinado problema, existem diversas formas ou abordagens. Pode acontecer que uma abordagem não se diferencie de outra já existente senão pela quantidade de passos dados para chegar à tal solução.</p>
+
+<p><strong>O que é um algoritmo?</strong>
+Em pesquisa rápida encontramos:</p>
+
+<blockquote>
+  <p>MATEMÁTICA - sequência finita de regras, raciocínios ou operações que, aplicada a um número finito de dados, permite solucionar classes semelhantes de problemas.</p>
+
+  <p>INFORMÁTICA - conjunto das regras e procedimentos lógicos perfeitamente definidos que levam à solução de um problema em um número finito de etapas.</p>
+</blockquote>
+
+<p>As duas definições envolvem o binômio problema-solução. Além disso, as duas definições usam a palavra regra e operações/procedimentos bem definidos e em quantidade finita. Ótimo!</p>
+
+<p><strong>Nada como um bom exemplo!</strong></p>
+
+<p>Como sou matemático, vou puxar para “minha sardinha”. Imaginando que todo mundo que se interessou por este artigo passou pelos cursos colegiais e resolveu uma equação do segundo grau, devemos lembrar que a solução dessa classe de problemas não se encontra apenas dando uma “olhadela” descompromissada na igualdade.</p>
+
+<p><strong>Seja P:</strong>
+O problema de encontrar os dois números reais \(x'\) e \(x''\) tais que satisfaçam a igualdade</p>
+
+\[ax^2 + bx + c = 0.\]
+
+<p>Se você bem se lembra, para resolver este tipo de problema, podemos utilizar um método (que nem é de Bhaskara) que consiste apenas em manipular os coeficientes de \(x^2\), \(x^1\) e \(x^0\), nomeadamente, \(a\), \(b\) e \(c\), respectivamente.</p>
+
+<p>Então a primeira coisa a fazer é obter o valor de \(a\), de \(b\) e de \(c\). (tomemos nota!)</p>
+
+<p>Novamente, devemos lembrar que, segundo o método apresentado, as duas soluções devem satisfazer a seguinte afirmação:</p>
+
+<p>Se \(x\) é solução de <strong>P</strong> então vale a seguinte relação entre \(x\) e os coeficientes \(a\), \(b\) e \(c\):</p>
+
+\[\begin{align}
+  \tag{eq:1}
+  x = \frac{-b \pm \sqrt{b^2-4.a.c}}{2.a}.
+\end{align}\]
+
+<p>O lado direito desta igualdade nos abre dois alertas:</p>
+
+<p>Como não podemos ter um denominador nulo, o valor de \(a\) não pode ser zero. Antes disso, esta expressão só pode ser escrita porque estamos tratando de uma equação do segundo grau e se \(a = 0\), nem teríamos uma. (tomemos nota!)</p>
+
+<p>O radicando não pode ser um número negativo pois estamos tratando de raízes <code class="language-plaintext highlighter-rouge">reais</code> e não das <code class="language-plaintext highlighter-rouge">complexas</code>. (tomemos nota!)</p>
+
+<p>O numerador apresenta uma <code class="language-plaintext highlighter-rouge">soma</code> e uma <code class="language-plaintext highlighter-rouge">diferença</code>. De fato, iremos encontrar uma solução \(x'\) para a soma e outra \(x''\) para a subtração ou vice e versa. (tomemos nota!)</p>
+
+<p>Ora! o que estamos fazendo não é nada mais do que nos organizando para resolver o problema <strong>P</strong>, uma vez que já conhecemos um modo de chegarmos até a sua solução.</p>
+
+<p>Que tal arrumarmos as nossas anotações? Vamos adotar uma ordem <code class="language-plaintext highlighter-rouge">lógica</code> e <code class="language-plaintext highlighter-rouge">bem definida</code> para escrevermos as nossas observações:</p>
+
+<ol>
+  <li>Vamos começar;</li>
+  <li>Precisamos conhecer os coeficientes da equação (\(a\), \(b\) e \(c\));</li>
+  <li>Não devemos aceitar \(a = 0\), pois, se assim for, nem teríamos uma aquação do segundo grau e então devemos voltar para o passo anterior;</li>
+  <li>Precisamos saber o sinal daquele radicando: \(b^2-4.a.c\). Ele é conhecido como discriminante da equação e lhe é atribuído a letra grega maiúscula delta (\(\Delta\)). Assim, se \(\Delta \lt 0\), devemos voltar ao passo [2.], pois a equação não possui raízes reais;</li>
+  <li>
+    <p>Se \(\Delta = 0\), a expressão (eq:1) tornar-se-á apenas \(x = \frac{-b}{2.a}\). Calculamos e apresentamos o resultado com a assertiva de que as raízes reais são iguais. Como nada mais há que fazer, vamos direto para o final do procedimento;</p>
+  </li>
+  <li>Se \(\Delta \gt 0\), devemos calcular um valor para \(x\) com respeito à soma e outro com respeito à diferença em (eq:1), exibimos os resultados; e</li>
+  <li>Terminamos.</li>
+</ol>
+
+<p>O que acabamos de escrever? Um algoritmo!</p>
+
+<p>Eperamos que você tenha gostado do assunto.</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Em geral, para se resolver um determinado problema, existem diversas formas ou abordagens. Pode acontecer que uma abordagem não se diferencie de outra já existente senão pela quantidade de passos dados para chegar à tal solução.]]></summary></entry><entry><title type="html">As operações e os conjuntos – I</title><link href="/as-operacoes-e-os-conjuntos-i/" rel="alternate" type="text/html" title="As operações e os conjuntos – I" /><published>2021-05-01T00:00:00-03:00</published><updated>2021-05-01T00:00:00-03:00</updated><id>/as-operacoes-e-os-conjuntos-i</id><content type="html" xml:base="/as-operacoes-e-os-conjuntos-i/"><![CDATA[<p>Este é o primeiro de uma série de artigos que escreveremos com o objetivo de realizar um estudo singelo sobre os conjuntos numéricos a partir das operações conhecidas. É sigelo, pois não demonstraremos nenhum resultado aqui enunciado. Os conjuntos irão aparecer na medida em que deles necessitemos.</p>
+
+<p>A ideia é problematizar as situações dentro de cada conjunto numérico apresentado. Na medida do possível, com situações simples, tentaremos exaurir os Conjuntos já conhecidos para apresentarmos um outro. De forma que o problema, até então sem solução, encontre <code class="language-plaintext highlighter-rouge">abrigo</code>, ou seja, um novo conjunto.</p>
+
+<p>Para dar um pouco de formalidade aos estudos que aqui tratados vamos lembrar alguns conceitos <code class="language-plaintext highlighter-rouge">basilares sobre os conjuntos</code>.</p>
+
+<h2 id="conjuntos-e-elementos">Conjuntos e elementos</h2>
+
+<p>Na matemática, um conjunto é uma entidade que agrega coisas que <code class="language-plaintext highlighter-rouge">cumprem</code> determinadas <code class="language-plaintext highlighter-rouge">propriedades</code>. Tais coisas são chamadas de <code class="language-plaintext highlighter-rouge">elementos</code>. Esta forma de estabelecer um conjunto é bastante abrangente, no sentido de que, se enunciarmos uma propriedade e que não haja algum elemento capaz de cumprir, esse conjunto não terá qualquer elemento, ou seja, é um conjunto vazio. Visite o artigo <a href="/conjunto-vazio/">Conjunto vazio</a> para mais detalhes.</p>
+
+<p>A que <code class="language-plaintext highlighter-rouge">relação</code> que poderá existir entre um elemento e um conjunto é chamada de relação de <code class="language-plaintext highlighter-rouge">pertinência</code>, enquanto que e a relação entre conjuntos é chamada de relação de <code class="language-plaintext highlighter-rouge">inclusão</code>.</p>
+
+<p>A notação matemática hoje é bastante consistente e facilita sobremedida sua escrita bem como a nossa compreenção sobre o que está escrito. Usam-se em geral as letras maiúscula do alfabeto latino (\(A, B, C,..\)) para designarmos os conjuntos e as minúsculas (\(a, b, c, ...\)) do mesmo alfabeto para designarmos os elementos de um conjunto.</p>
+
+<p>Na medida do possível, representamos um conjunto elencando seus elementos entre chaves e separando-os por vírgualas ou ponto e vígulas. Assim, podemos escrever</p>
+
+\[P = \{a, e, i, o, u\}\]
+
+<p>e diremos que \(P\) é o conjunto das nossas vogais minúsculas.</p>
+
+<p>Quando não quisermos nos alongar com a escrita e não causar nenhuma confusão de entendimento, poderemos usar as reticências para representar uma sequêcia lógica de raciocínio. Por exemplo,</p>
+
+\[Q = \{1, 2, 3, ..., 9, 10\}\]
+
+<p>e</p>
+
+\[\Bbb{N} = \{0, 1, 2, 3, ...\}\]
+
+<p>será o mesmo que escrevermos \(Q = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}\) e que \(\Bbb{N}\) é o conjunto que <code class="language-plaintext highlighter-rouge">começa</code> no zero, passa pelo em, pelo dois, pelo três e é infinito.</p>
+
+<p>À propósito, o conjunto \(\Bbb{N}\) apresentado acima é chamado de <code class="language-plaintext highlighter-rouge">Conjunto dos Númerios Naturais</code>. Daqui para frente diremos apenas os <code class="language-plaintext highlighter-rouge">Naturais</code>.</p>
+
+<h3 id="as-relações-de-pertinencia-elemento-e-conjunto">As relações de pertinencia (elemento e conjunto)</h3>
+
+<p>Usamos a notação \(x \in J\) e \(y \notin K\), para dizermos que \(x\) é um elemento do conjunto \(J\) e que \(y\) não é um elemento do conjunto \(K\), respectivamente. Abreviadamente dizemos “\(x\) pertence a \(J\)” e “\(y\) não pertence a \(K\)”.</p>
+
+<h4 id="exemplos">Exemplos</h4>
+
+<p>Dado o conjunto \(Q\) acima, temos que</p>
+
+\[3 \in Q,\]
+
+\[16 \notin Q.\]
+
+<p>Quando não é possivel ou é enfadonho arrolarmos todos os elementos de um conjunto entre chaves, podemos fazê-lo determinando uma regra ou propriedade que seus elementos cumprem. Podemo ter, então</p>
+
+\[L = \{ x ; \text{"x cumpre determinada regra"}\},\]
+
+<p>e leríamos: \(L\) é o conjunto dos \(x\) tal que, \(x\) cumpre determinada regra. É comum encontrarmos nos livros didáticos, em vez de ponto e vírgula (;), uma barra (/ ou |) para designar o <code class="language-plaintext highlighter-rouge">tal que</code>.</p>
+
+<h4 id="exemplo">Exemplo</h4>
+
+\[D = \{n \in \Bbb{N}; n \le 12 \} = \{0, 1, 2, 3, ..., 11, 12 \}.\]
+
+<p>Mais à frente, veremos mais formas.</p>
+
+<h3 id="as-relações-de-inclusão-entre-conjuntos">As relações de inclusão (entre conjuntos)</h3>
+
+<p>Quando todos os elementos de um conjunto \(P\) são também elementos do cojunto \(Q\), diremos que \(P\) é um subcjunto de \(Q\) ou ainda que \(P\) está contido em \(Q\) e escreveremos \(P \subset Q\).</p>
+
+<p>Se invertermos a ordem de escrita dos dois conjuntos \(P\) e \(Q\) e escrevermos \(Q \supset P\), diremos que \(Q\) contém \(P\). Contudo, continuaremos entendendo que \(P\) é subconjunto de \(Q\).</p>
+
+<h4 id="exemplo-1">Exemplo</h4>
+
+<p>Temos que \(P = \{2k; k \in \Bbb{N}\} = \{0, 2, 4, ...\}\) é conjunto dos números naturais pares e portanto, \(P \subset \Bbb{N}\) ou ainda, \(\Bbb{N} \supset P\).</p>
+
+<p>Em particular, as relações entre conjunto dão encejo a uma <code class="language-plaintext highlighter-rouge">álgebra</code> muito especial. À medida que necessitarmos de mais substância, nós faremos mais menções.</p>
+
+<h3 id="conjunto-fechado-em-relação-a-uma-operação">Conjunto fechado em relação a uma operação</h3>
+
+<p>Nos cursos superiores de Matemática, usa-se um conceito muito apropriado para relatar fatos sobre um conjunto e uma determinada operação entre seus elementos. Dado um conjunto \(M\) e uma operação \(\oplus\), dizemos que \(M\) é <code class="language-plaintext highlighter-rouge">fechado</code> em relação à operação \(\oplus\), se para todo \(x,y \in M\), tivermos \(x \oplus y \in M\).</p>
+
+<p>No próximo artigo desta série, nós avançaremos um pouco mais.</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><category term="Conjuntos" /><category term="Números" /><summary type="html"><![CDATA[Este é o primeiro de uma série de artigos que escreveremos com o objetivo de realizar um estudo singelo sobre os conjuntos numéricos a partir das operações conhecidas. É sigelo, pois não demonstraremos nenhum resultado aqui enunciado. Os conjuntos irão aparecer na medida em que deles necessitemos. A ideia é problematizar as situações dentro de cada conjunto numérico apresentado. Na medida do possível, com situações simples, tentaremos exaurir os Conjuntos já conhecidos para apresentarmos um outro. De forma que o problema, até então sem solução, encontre abrigo, ou seja, um novo conjunto.]]></summary></entry><entry><title type="html">Conjunto vazio</title><link href="/conjunto-vazio/" rel="alternate" type="text/html" title="Conjunto vazio" /><published>2021-04-30T00:00:00-03:00</published><updated>2021-04-30T00:00:00-03:00</updated><id>/conjunto-vazio</id><content type="html" xml:base="/conjunto-vazio/"><![CDATA[<p><strong>O que vem a ser um conjunto vazio?</strong></p>
+
+<p>Vamos discutir a noção de conjunto vazio a partir de um exemplo.</p>
+
+<p>Ao lançarmos um dado regular, o conjunto das possibilidades será \(D = \{1, 2, 3, 4, 5, 6\}\), então vamos analisar este outro conunto:</p>
+
+\[W = \{x \in D; x &gt; 6 \}.\]
+
+<p>Em vez de simplesmente definirmos que <code class="language-plaintext highlighter-rouge">um conjunto é uma reunião de elementos</code> (que de certa forma é uma definição um pouco vaga, uma vez que existe o conjunto vazio), vamos definir cojunto a partir de uma propriedade que <code class="language-plaintext highlighter-rouge">seus elementos</code> possam (ou não) <code class="language-plaintext highlighter-rouge">cumprir</code>.</p>
+
+<p>Notemos que o cunjunto \(D\) foi definido arrolando os seus elementos entre chaves, mas poderíamos definí-lo também a partir de uma propriedade, por exemplo</p>
+
+\[D = \{ n \in \Bbb{N}; 1 \leq n \leq 6  \},\]
+
+<p>como foi definido o conjunto \(W\).</p>
+
+<p>Se a propriedade \(P\) (\(P\): “o elemento \(x\) pertence a \(D\) e é maior do que 6”) for definida desta forma será um conjunto. Como não há qualquer \(x\) que cumpra \(P\), podemos escrever</p>
+
+\[W = \{x \in D; x &gt; 6 \} = \{x; x \in P \} = \{ \} = \emptyset. ,\]
+
+<p>Pronto! Como todas as possibilidades do lançamento de um dado regular não superam 6, segue que \(W\) não possui elementos.</p>
+
+<p>Até a próxima!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><category term="Conjunto vazio" /><category term="Conjuntos" /><category term="Matemática" /><summary type="html"><![CDATA[O que vem a ser um conjunto vazio? Vamos discutir a noção de conjunto vazio a partir de um exemplo. Ao lançarmos um dado regular, o conjunto das possibilidades será \(D = \{1, 2, 3, 4, 5, 6\}\), então vamos analisar este outro conunto: \[W = \{x \in D; x &gt; 6 \}.\]]]></summary></entry><entry><title type="html">Html – Select dependente de outro select</title><link href="/html-select-dependente-de-outro-select/" rel="alternate" type="text/html" title="Html – Select dependente de outro select" /><published>2021-04-30T00:00:00-03:00</published><updated>2021-04-30T00:00:00-03:00</updated><id>/html-select-dependente-de-outro-select</id><content type="html" xml:base="/html-select-dependente-de-outro-select/"><![CDATA[<p>Muitas pessoas têm dúvidas de como popular as opções de um select dependendo de uma escolha selecionada em um outro select. Nesta abordagem, vamos combinar dois arquivos: o primeiro, conterá <code class="language-plaintext highlighter-rouge">scripts</code> <code class="language-plaintext highlighter-rouge">html</code>, <code class="language-plaintext highlighter-rouge">js</code> e <code class="language-plaintext highlighter-rouge">aJax</code>, e o segundo contará com script <code class="language-plaintext highlighter-rouge">php</code>, <code class="language-plaintext highlighter-rouge">js</code> e <code class="language-plaintext highlighter-rouge">html</code>.</p>
+
+<p>Usaremos como exemplo a situação em que desejamos selecionar um Município relativamente a uma Unidade da Federação (UF) previamente escolhida no primeiro select.</p>
+
+<p>O primeiro aquivo, que diremos principal, será nomeado <code class="language-plaintext highlighter-rouge">arq_principal.php</code> conterá o primeiro select com as opções com quatro unidades da federação:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span> 
+  <span class="nt">&lt;head&gt;</span> 
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">/&gt;</span> http://code.jquery.com/jquery-latest.min.js <span class="nt">&lt;title&gt;</span>Teste<span class="nt">&lt;/title&gt;</span> 
+  <span class="nt">&lt;/head&gt;</span> 
+  <span class="nt">&lt;body&gt;</span> 
+    <span class="nt">&lt;form&gt;</span> 
+      <span class="nt">&lt;div&gt;</span> 
+        <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">'sel_estado'</span> <span class="na">name=</span><span class="s">'estado'</span><span class="nt">&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>MA<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>PI<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>CE<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>PE<span class="nt">&lt;/option&gt;</span> 
+          <span class="nt">&lt;option&gt;</span>PA<span class="nt">&lt;/option&gt;</span> 
+        <span class="nt">&lt;/select&gt;</span> 
+      <span class="nt">&lt;/div&gt;</span> 
+      <span class="nt">&lt;div&gt;</span> 
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">'div_municipios'</span><span class="nt">&gt;</span> Aqui ficará o select de municípios do estado selecionado. <span class="nt">&lt;/div&gt;</span> 
+      <span class="nt">&lt;/div&gt;</span> 
+    <span class="nt">&lt;/form&gt;</span> 
+  <span class="nt">&lt;/body&gt;</span> 
+<span class="nt">&lt;/html&gt;</span>
+// 
+<span class="nt">&lt;script </span><span class="na">language=</span><span class="s">"JavaScript"</span><span class="nt">&gt;</span> 
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="c1">// Quando o valor do select (id='sel_estado') das uf for alterado </span>
+  <span class="c1">// a função filtra_municipios() será chamada... </span>
+  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="dl">"</span><span class="s2">change</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">#sel_estado</span><span class="dl">"</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span> 
+    <span class="nx">filtra_municipios</span><span class="p">();</span> 
+  <span class="p">});</span> 
+<span class="p">});</span>
+<span class="c1">// </span>
+<span class="kd">function</span> <span class="nx">filtra_municipios</span><span class="p">(){</span> 
+  <span class="nx">estado</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#sel_estado</span><span class="dl">"</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span> 
+  <span class="c1">// Obtém o valor selecionado no select </span>
+  <span class="c1">// Este script ajax remete ao script php filtro_municipios.php com </span>
+  <span class="c1">// passagem de parâmetro uf via POST para tratamento e retorno do </span>
+  <span class="c1">// script html com o select montado com os municípios filtrados. </span>
+  <span class="c1">// Este select tera saída na </span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">'</span><span class="s1">div_municipios</span><span class="dl">'</span><span class="o">&gt;</span> 
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">filtro_municipios.php</span><span class="dl">'</span><span class="p">,</span> 
+          <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span> 
+          <span class="na">data</span><span class="p">:</span> <span class="p">({</span> <span class="na">uf</span><span class="p">:</span> <span class="nx">estado</span> <span class="p">}),</span> 
+       <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span> 
+                      <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#div_municipios</span><span class="dl">"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="p">}</span> 
+          <span class="p">});</span> 
+<span class="p">}</span> 
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+<p>O segundo aquivo, dito secundário, nomearemos de <code class="language-plaintext highlighter-rouge">filtro_municipios.php</code> e conterá o segundo select com os município em uma <code class="language-plaintext highlighter-rouge">array</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?</span> 
+  <span class="c1">// Obtenção do estado (UF) obtido pela passagem via POST na chamada ajax. $uf = $_POST['uf']; </span>
+  <span class="c1">// Como exemplo temos umaa array contendo três municípios para cada </span>
+  <span class="c1">// um dos cinco estados do primeiro &lt;select&gt; </span>
+  <span class="nv">$municipios</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> <span class="p">[</span><span class="s1">'MA'</span><span class="o">=&gt;</span><span class="s1">'São Luís'</span><span class="p">,</span> 
+                        <span class="s1">'PI'</span><span class="o">=&gt;</span><span class="s1">'Teresina'</span><span class="p">,</span> 
+                        <span class="s1">'PE'</span><span class="o">=&gt;</span><span class="s1">'Recife'</span><span class="p">,</span> 
+                        <span class="s1">'CE'</span><span class="o">=&gt;</span><span class="s1">'Fortaleza'</span><span class="p">,</span> 
+                        <span class="s1">'PA'</span><span class="o">=&gt;</span><span class="s1">'Belém'</span><span class="p">],</span> 
+                        <span class="p">[</span><span class="s1">'MA'</span><span class="o">=&gt;</span><span class="s1">'Rosário'</span><span class="p">,</span><span class="s1">'PI'</span><span class="o">=&gt;</span><span class="s1">'Barras'</span><span class="p">,</span><span class="s1">'PE'</span><span class="o">=&gt;</span><span class="s1">'Petrolina'</span><span class="p">,</span><span class="s1">'CE'</span><span class="o">=&gt;</span><span class="s1">'Caucaia'</span><span class="p">,</span><span class="s1">'PA'</span><span class="o">=&gt;</span><span class="s1">'Castanhal'</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">'MA'</span><span class="o">=&gt;</span><span class="s1">'Raposa'</span><span class="p">,</span><span class="s1">'PI'</span><span class="o">=&gt;</span><span class="s1">'Oeiras'</span><span class="p">,</span><span class="s1">'CE'</span><span class="o">=&gt;</span><span class="s1">'Juazeiro'</span><span class="p">,</span><span class="s1">'PE'</span><span class="o">=&gt;</span><span class="s1">'Jaboatão'</span><span class="p">,</span><span class="s1">'PA'</span><span class="o">=&gt;</span><span class="s1">'Capanema'</span><span class="p">]);</span> 
+<span class="cp">?&gt;</span> 
+<span class="c">&lt;!-- Montagem do &lt;select&gt; cujos &lt;option&gt; serão os minicípios filtrados pelo conteúdo em $uf. 
+     O resultado deste script HTML será devolvido à chamada ajax--&gt;</span>
+  <span class="nt">&lt;select&gt;</span> 
+    <span class="cp">&lt;?</span><span class="k">foreach</span><span class="p">(</span><span class="nv">$municipios</span> <span class="k">as</span> <span class="nv">$reg</span><span class="p">){</span> <span class="cp">?&gt;</span> <span class="nt">&lt;option&gt;</span><span class="cp">&lt;?=</span><span class="nv">$reg</span><span class="p">[</span><span class="nv">$uf</span><span class="p">]</span><span class="cp">?&gt;</span><span class="nt">&lt;/option&gt;</span> <span class="cp">&lt;?</span> <span class="p">}</span> <span class="cp">?&gt;</span> 
+  <span class="nt">&lt;/select&gt;</span>
+</code></pre></div></div>
+
+<p>Pronto. Sugerimos que você primeiro experimente este exemplo para ver como funciona e, a partir do seu entendimento, adeque às suas necessidades!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Muitas pessoas têm dúvidas de como popular as opções de um select dependendo de uma escolha selecionada em um outro select. Nesta abordagem, vamos combinar dois arquivos: o primeiro, conterá scripts html, js e aJax, e o segundo contará com script php, js e html.]]></summary></entry><entry><title type="html">ChromeOS-Brunch dual boot com linux</title><link href="/chromeos-mint/" rel="alternate" type="text/html" title="ChromeOS-Brunch dual boot com linux" /><published>2021-03-01T00:00:00-03:00</published><updated>2021-03-01T00:00:00-03:00</updated><id>/chromeos-mint</id><content type="html" xml:base="/chromeos-mint/"><![CDATA[<p>Se você já possui o Linux instalado e funcionando em seu computador e quer instalar o Chrome OS, do projeto brunch, em “dual boot”, este tutorial pode ajudá-lo.</p>
+
+<p>O procedimento aqui adotado foi testado em dois notebooks baseados no Intel. Um apenas com Linux Mint 19.3 instalado e outro que já possuía dual boot com a mesma versão do Mint e Windows 10. Nos dois notebooks, utilizamos o terminal de comandos do linux.</p>
+
+<p>Supondo que você já possua alguma habilidade com a criação de partições em HD/SSD com gparted ou outro aplicativo similar, bem como a manipulação de entradas no grub com o grub-customize ou outra forma, não iremos entrar nestes detalhes.</p>
+
+<h3 id="o-processo-de-istalação-consiste-em">O processo de istalação consiste em:</h3>
+<ul>
+  <li>Baixar os arquivos necessários para a instalação do brunch (imagem e o brunch, ambos compactados), aqui iremos referenciá-lo como ChromeOS;</li>
+  <li>Instalação dos utilitários linux necessárias à manipulação de arquivos compactados, edição de grub, manipulação de partições no disco e das ferramentas pv e cgpt;</li>
+  <li>Descompactar o conteúdo dos arquivos baixados em uma pasta criada para tal finalidade;</li>
+  <li>Escolha/criação da partição onde será instalado o ChromeOS;</li>
+  <li>Montagem da partição escolhida em um ponto de montagem;</li>
+  <li>Instalação do ChromeOS; e</li>
+  <li>Inclusão da entrada no menu do grub.</li>
+</ul>
+
+<h3 id="então-vamos-começar">Então vamos começar</h3>
+
+<h4 id="cromeosbrunch">CromeOS/Brunch</h4>
+<p>Baixar a imagem de recuperação do CromeOS e o lançamento Brunch, ambos com a mesma versão, por exemplo em nosso caso, instalamos a versão 94. 
+Links:</p>
+<ul>
+  <li><a href="https://chromiumdash.appspot.com/serving-builds">Imagem ChromeOS</a></li>
+  <li><a href="https://github.com/sebanc/brunch/releases">Brunch</a></li>
+</ul>
+
+<h4 id="pv-cgpt-tar-e-unzip">pv, cgpt, tar, e unzip</h4>
+<p>Certifique-se de já ter instalado estes programas aqui, pois necessários:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt -y install pv cgpt tar unzip
+</code></pre></div></div>
+<h4 id="organização-dos-arquivos-já-descompactados-em-uma-pasta">Organização dos arquivos já descompactados em uma pasta</h4>
+<p>Devemos criar uma pasta para colocar os aquivos necessários à instalação do ChromeOS. Para efeitos deste artigo, criaremos a pasta <code class="language-plaintext highlighter-rouge">Chomeos</code> em <code class="language-plaintext highlighter-rouge">Downloads</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/Dowloads/Chromeos
+</code></pre></div></div>
+<p>Extrair o conteúdos dos arquivos baixados para a pasta recém criada. Renomear o arquivo com extensão .bin para rammus_recovery.bin (este será o único arquivo a ser renomeado). Ao final, deveremos ter os cinco arquivos desta lista:</p>
+
+<ul>
+  <li>chromeos-install.sh</li>
+  <li>efi_legacy.img</li>
+  <li>efi_secure.img</li>
+  <li>rammus_recovery.bin</li>
+  <li>rootc.img</li>
+</ul>
+
+<h4 id="partição-para-instalação-do-chromeos">Partição para instalação do ChromeOS</h4>
+<p>Neste ponto você deverá escolher ou criar a partição na qual o ChromeOS será instalado. A partição não poderá ter tamanho inferio a 16GB. (sugestão 30GB). Caso não exista, use o gparted para determinar a partição e formate-a como ext4 ou ntfs. Sugerimos ext4.</p>
+
+<p>Certifique-se de ter instalado o gparted com o comando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt -y install gparted
+</code></pre></div></div>
+<p>Verificando as partições existentes (opcional)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk -e7
+</code></pre></div></div>
+
+<h4 id="montagem-da-partição">Montagem da partição</h4>
+<p>Uma vez escolhida a partição que receberá o ChromeOS, devemos montá-la para iniciarmos a instalação. Primeiro criaremos um local de montagem e depois montaremos a partição neste ponto. Para efeito deste artigo, como exemplo, utilizaremos a partição <code class="language-plaintext highlighter-rouge">sda5</code>. (Nota: No comando mount, NÃO esqueça de substituir a partição para o seu caso em particular):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/tmpmount
+sudo mount /dev/sda5 ~/tmpmount
+</code></pre></div></div>
+<h4 id="instalação">Instalação</h4>
+<p>Motada a partição de destino, vamos instalar o ChromeOS. Para tanto, vamos nos posicionar na pasta onde estão os arquivos que baixamos:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/Downloads/Chromeos 
+sudo bash chromeos-install.sh -src rammus_recovery.bin -dst ~/tmpmount/chromeos.img -s 30
+</code></pre></div></div>
+<p>O script pedirá confirmação. Se você estiver pronto para instalar, digite <code class="language-plaintext highlighter-rouge">yes</code> para confirmar.</p>
+
+<h4 id="inclusão-no-menu-do-grub">Inclusão no menu do grub</h4>
+<p>Vamos sugerir a utilização do grub-customize para esta finalidade.</p>
+
+<p>“Script” sugerido para entrada do grub (Nota: lembre de alterar <code class="language-plaintext highlighter-rouge">sda5</code> para a partição que você escolheu/criou anteriormente!):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rmmod tpm
+img_part=/dev/sda5
+img_path=/chromeos.img
+search --no-floppy --set=root --file $img_path
+loopback loop $img_path
+linux (loop,7)/kernel boot=local noresume noswap loglevel=7 disablevmx=off  \
+	cros_secure cros_debug options= loop.max_part=16 img_part=$img_part img_path=$img_path \
+	console= vt.global_cursor_default=0 brunch_bootsplash=default
+initrd (loop,7)/lib/firmware/amd-ucode.img (loop,7)/lib/firmware/intel-ucode.img (loop,7)/initramfs.img
+</code></pre></div></div>
+<h5 id="grub-customize">grub-customize</h5>
+<ul>
+  <li>No menu “Editar” do grub-customize, opte por “Novo”;</li>
+  <li>Na janela “Editor de Entradas – Grub Customizer”, dê um nome para a entrada (Exemplo: ChromeOS) e, para tipo, escolha “Outro”;</li>
+  <li>Copie o “script” acima neste tutorial e cole na caixa de textos da janela “Editor de Entradas – Grub Customizer”;</li>
+  <li>Com todos os campos preenchidos na janela “Editor de Entradas – Grub Customizer”, pressione o botão “OK” e a janela irá se fechar;</li>
+  <li>De volta à janela anterior do Grub Customize, pressione o botão salvar</li>
+</ul>
+
+<h4 id="desmontando-a-partição">Desmontando a partição</h4>
+<p>Agora você já pode desmontar a partição com o comando:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo umount ~/tmpmount
+</code></pre></div></div>
+<p>Pronto, agora você já pode reiniciar o computador e no menu do grub selecione a entrada ChromeOS. Da primeira vez demorará um pouco e você será convidado a fornecer as informações da nova máquina Chrome OS.</p>
+
+<hr />
+<p>Fonte: <a href="https://github.com/sebanc/brunch/blob/master/install-with-linux.md">github.com/sebanc/brunch</a>
+(seção: Dualboot installations).</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Se você já possui o Linux instalado e funcionando em seu computador e quer instalar o Chrome OS, do projeto brunch, em “dual boot”, este tutorial pode ajudá-lo. O procedimento aqui adotado foi testado em dois notebooks baseados no Intel. Um apenas com Linux Mint 19.3 instalado e outro que já possuía dual boot com a mesma versão do Mint e Windows 10. Nos dois notebooks, utilizamos o terminal de comandos do linux.]]></summary></entry></feed>

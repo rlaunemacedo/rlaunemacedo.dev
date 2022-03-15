@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<title>Montagem de partições internas no ChromeOS/Brunch | e.rlaune</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Raimundo Nonato Launé macêdo">
+<meta name="generator" content="Jekyll v4.2.2">
+<link rel="canonical" href="/montagem-de-particoes-internas-no-chromeos-brunch/">
+
+<link rel="stylesheet" href="/assets/css/frame.css">
+
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
+ <!-- page.mathjax or site.mathjax %}-->
+<link rel="stylesheet" href="/assets/katex/katex.min.css">
+<script defer src="/assets/katex/katex.min.js"></script>
+<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
+  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
+
+</header>
+
+<article>
+  <header>
+  <h1><a href="/montagem-de-particoes-internas-no-chromeos-brunch/">Montagem de partições internas no ChromeOS/Brunch</a></h1><time datetime="2021-10-25T00:00:00-03:00">October 25, 2021</time>
+</header>
+
+  <p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
+
+<p>A sugestão é, em vez de editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code>, você criar um novo em local diferente <code class="language-plaintext highlighter-rouge">/usr/local/fstab</code> que poderá ser editado no Chrome OS mais tarde.</p>
+
+<p><strong>Partições internas montáveis no disco</strong></p>
+
+<p>Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os <code class="language-plaintext highlighter-rouge">IDs</code> do dispositivo usando vários métodos. Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o seguinte comando:</p>
+
+<p>Para verificar as partições montáveis no HDD, abra o <code class="language-plaintext highlighter-rouge">CROSH</code> (ctrl+alt+T) e execute os comandos:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shell
+<span class="nb">sudo</span> /sbin/blkid <span class="nt">-o</span> full | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^/dev/sd.*TYPE"</span> | <span class="nb">grep</span> <span class="nt">-vE</span> <span class="s2">"EFI|STATE|ROOT-A"</span>
+</code></pre></div></div>
+<p>Neste ponto você terá uma lista de partições montáveis (meu caso, por exemplo):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1: <span class="nv">UUID</span><span class="o">=</span><span class="s2">"72FB-DEFB"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"512"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"vfat"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"0538aab4-ffd6-49cd-a555-3f08ef2124ec"</span>
+/dev/sda2: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"Mint19.3"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"833aae96-3d32-41ee-b5ea-99a959506114"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"Mint19.3"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"454a609f-6711-481f-ad00-c7328cf99ae7"</span>
+/dev/sda3: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"ChromeOS"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"512"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"284A910B20CA3FF7"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ntfs"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"ChromeOS"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"c36e518b-455c-4d52-859c-9c0cd9328649"</span>
+/dev/sda4: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"rootMX19"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"3d274ab4-da97-4d66-a447-6ab1d337beef"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"MX19"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"82b570a9-76c0-4b71-b093-b2baeaa0e75c"</span>
+/dev/sda5: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"DadosSSD"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"2bf709a6-dccd-4da9-932f-7fe67bed0fd2"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"DadosSSD"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"21bc6803-de42-454b-a9c6-4e6045427108"</span>
+</code></pre></div></div>
+
+<p>Tome nota das partições que você quer montar automaticamente (no nosso caso, por exemplo, montamos apenas <code class="language-plaintext highlighter-rouge">/dev/sda5</code>).</p>
+
+<p><strong>Ponto de montagem da partição</strong></p>
+
+<p>Importante observar que a pasta ~/Dowloads é montada em local específico para cada usuário e depende da versão do Chrome OS. Para descobrir o seu local em particular, execute o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> /home/<span class="nv">$USER</span>/u-<span class="nv">$CROS_USER_ID_HASH</span>/MyFiles/Downloads
+</code></pre></div></div>
+
+<p>Se você estiver utilizando uma versão do Chrome OS não superior à 78, deverá utilizar:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> /home/<span class="nv">$USER</span>/u-<span class="nv">$CROS_USER_ID_HASH</span>/Downloads
+</code></pre></div></div>
+<p>Você obterá como resposta algo do tipo (meu caso):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads
+</code></pre></div></div>
+
+<p><strong>Estrutura do arquivo fstab</strong></p>
+
+<p>Está claro que para cada partição, que você queira montar, deverá existir um ponto de montagem. Assim, o arquivo fstab deverá ter a seguinte estrutura (por exemplo):</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome1 auto default 0 0
+/dev/sda2 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome2 auto default 0 0
+/dev/sda3 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome3 auto default 0 0
+</code></pre></div></div>
+
+<p><strong>Criação do arquivo /usr/local/fstab</strong></p>
+
+<p>Para criar o arquivo /usr/local/fstab, execute o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vim /usr/local/fstab
+</code></pre></div></div>
+
+<p>Adicione a este arquivo as linhas de montagens conforme as suas necessidades, seguindo a estrutura acima e salve-o. No nosso caso:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda5 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Dados auto defaults 0 0
+</code></pre></div></div>
+
+<p>Observe que nós montamos apenas a partição sda5 e terá como ponto de montagem ~/MyFiles/Downloads/Dados.</p>
+
+<blockquote>
+  <p><strong>Nota:</strong> 
+ Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando</p>
+
+  <p>echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads.</p>
+</blockquote>
+
+<p><strong>Configuração final</strong></p>
+
+<p>Uma vez criado e editado o arquivo fstab, baixe e salve o arquivo 
+<a href="https://raw.githubusercontent.com/MuntashirAkon/Chrome-OS-Multiboot/master/mount-internals.conf">mount-internals.conf</a> em ~/Dowloads.
+Monte a partição root para escrita com o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mount <span class="nt">-o</span> rw,remount /
+</code></pre></div></div>
+
+<p>Finalmente copie o arquivo mount-internals.conf recém baixado para /etc/init/ com o comando:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo cp</span> ~/Downloads/mount-internals.conf /etc/init/
+</code></pre></div></div>
+
+<p>Pronto! Agora você poderá reiniciar seu Chrome.</p>
+
+<hr />
+<p>Fonte: 
+<a href="https://github.com/MuntashirAkon/Chrome-OS-Multiboot/">https://github.com/MuntashirAkon/Chrome-OS-Multiboot/</a></p>
+
+
+  
+</article>
+
+
+
+<footer>
+  <div>Made with <b style="color: #f45;">&lt;3</b></div>
+  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>

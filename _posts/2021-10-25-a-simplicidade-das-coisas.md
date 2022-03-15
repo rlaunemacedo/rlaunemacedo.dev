@@ -1,0 +1,18 @@
+---
+layout: post
+title: A simplicidade das coisas
+author: "Raimundo Nonato Launé macêdo"
+tags: []
+---
+
+Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora.
+
+A proximidade que nos referimos anteriormente é aquela que se usa para sistematizar os conceitos já impregnados em nós mesmo. É assim que, o aprendiz associa a palavra "casa" ao conceito associado a ela – o objeto casa ou a abstração lar. Assim, poderemos associar casa e beleza; a casa e a posse dela; casa e a quantidade delas, por exemplo, existente em uma rua – rua também é outro conceito familiar. O que se apreende destas arrumações são as sistematizações, nascem as formalidades. É mais bonito dizer "casa bonita" do que "bonito casa".
+
+
+Das quantidades nascem um princípio elementar para a construção de uma das mais belas sistematizações da humanidade a Matemática. Nasce da forma mais bela e simples colocar, agregar, retirar, diminuir, retirar tudo, … tudo simples. Mas, assim como a capacidade de abstrair coisas e situações vai aumentando naquele que se dedica à sistematização das coisas, vão aumentado também o distanciamento da realidade simples e localmente observada no dia a dia.
+
+>A curiosidade dá asas à investigação! É esta curiosidade que nos faz perguntar: E se não fosse assim…? O que aconteceria se…? É possível que…? Poderíamos dizer então que…? Então poderíamos ter situações em que…? Então eu poderia classificar este grupo em…?
+
+Nem sempre encontraremos todas as respostas, mas o conhecimento gerado ao longo da incansável procura é incomensurável.
+

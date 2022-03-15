@@ -1,0 +1,74 @@
+I"�<p>Este é o primeiro de uma série de artigos que escreveremos com o objetivo de realizar um estudo singelo sobre os conjuntos numéricos a partir das operações conhecidas. É sigelo, pois não demonstraremos nenhum resultado aqui enunciado. Os conjuntos irão aparecer na medida em que deles necessitemos.</p>
+
+<p>A ideia é problematizar as situações dentro de cada conjunto numérico apresentado. Na medida do possível, com situações simples, tentaremos exaurir os Conjuntos já conhecidos para apresentarmos um outro. De forma que o problema, até então sem solução, encontre <code class="language-plaintext highlighter-rouge">abrigo</code>, ou seja, um novo conjunto.</p>
+
+<p>Para dar um pouco de formalidade aos estudos que aqui tratados vamos lembrar alguns conceitos <code class="language-plaintext highlighter-rouge">basilares sobre os conjuntos</code>.</p>
+
+<h2 id="conjuntos-e-elementos">Conjuntos e elementos</h2>
+
+<p>Na matemática, um conjunto é uma entidade que agrega coisas que <code class="language-plaintext highlighter-rouge">cumprem</code> determinadas <code class="language-plaintext highlighter-rouge">propriedades</code>. Tais coisas são chamadas de <code class="language-plaintext highlighter-rouge">elementos</code>. Esta forma de estabelecer um conjunto é bastante abrangente, no sentido de que, se enunciarmos uma propriedade e que não haja algum elemento capaz de cumprir, esse conjunto não terá qualquer elemento, ou seja, é um conjunto vazio. Visite o artigo <a href="/conjunto-vazio/">Conjunto vazio</a> para mais detalhes.</p>
+
+<p>A que <code class="language-plaintext highlighter-rouge">relação</code> que poderá existir entre um elemento e um conjunto é chamada de relação de <code class="language-plaintext highlighter-rouge">pertinência</code>, enquanto que e a relação entre conjuntos é chamada de relação de <code class="language-plaintext highlighter-rouge">inclusão</code>.</p>
+
+<p>A notação matemática hoje é bastante consistente e facilita sobremedida sua escrita bem como a nossa compreenção sobre o que está escrito. Usam-se em geral as letras maiúscula do alfabeto latino (\(A, B, C,..\)) para designarmos os conjuntos e as minúsculas (\(a, b, c, ...\)) do mesmo alfabeto para designarmos os elementos de um conjunto.</p>
+
+<p>Na medida do possível, representamos um conjunto elencando seus elementos entre chaves e separando-os por vírgualas ou ponto e vígulas. Assim, podemos escrever</p>
+
+\[P = \{a, e, i, o, u\}\]
+
+<p>e diremos que \(P\) é o conjunto das nossas vogais minúsculas.</p>
+
+<p>Quando não quisermos nos alongar com a escrita e não causar nenhuma confusão de entendimento, poderemos usar as reticências para representar uma sequêcia lógica de raciocínio. Por exemplo,</p>
+
+\[Q = \{1, 2, 3, ..., 9, 10\}\]
+
+<p>e</p>
+
+\[\Bbb{N} = \{0, 1, 2, 3, ...\}\]
+
+<p>será o mesmo que escrevermos \(Q = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}\) e que \(\Bbb{N}\) é o conjunto que <code class="language-plaintext highlighter-rouge">começa</code> no zero, passa pelo em, pelo dois, pelo três e é infinito.</p>
+
+<p>À propósito, o conjunto \(\Bbb{N}\) apresentado acima é chamado de <code class="language-plaintext highlighter-rouge">Conjunto dos Númerios Naturais</code>. Daqui para frente diremos apenas os <code class="language-plaintext highlighter-rouge">Naturais</code>.</p>
+
+<h3 id="as-relações-de-pertinencia-elemento-e-conjunto">As relações de pertinencia (elemento e conjunto)</h3>
+
+<p>Usamos a notação \(x \in J\) e \(y \notin K\), para dizermos que \(x\) é um elemento do conjunto \(J\) e que \(y\) não é um elemento do conjunto \(K\), respectivamente. Abreviadamente dizemos “\(x\) pertence a \(J\)” e “\(y\) não pertence a \(K\)”.</p>
+
+<h4 id="exemplos">Exemplos</h4>
+
+<p>Dado o conjunto \(Q\) acima, temos que</p>
+
+\[3 \in Q,\]
+
+\[16 \notin Q.\]
+
+<p>Quando não é possivel ou é enfadonho arrolarmos todos os elementos de um conjunto entre chaves, podemos fazê-lo determinando uma regra ou propriedade que seus elementos cumprem. Podemo ter, então</p>
+
+\[L = \{ x ; \text{"x cumpre determinada regra"}\},\]
+
+<p>e leríamos: \(L\) é o conjunto dos \(x\) tal que, \(x\) cumpre determinada regra. É comum encontrarmos nos livros didáticos, em vez de ponto e vírgula (;), uma barra (/ ou |) para designar o <code class="language-plaintext highlighter-rouge">tal que</code>.</p>
+
+<h4 id="exemplo">Exemplo</h4>
+
+\[D = \{n \in \Bbb{N}; n \le 12 \} = \{0, 1, 2, 3, ..., 11, 12 \}.\]
+
+<p>Mais à frente, veremos mais formas.</p>
+
+<h3 id="as-relações-de-inclusão-entre-conjuntos">As relações de inclusão (entre conjuntos)</h3>
+
+<p>Quando todos os elementos de um conjunto \(P\) são também elementos do cojunto \(Q\), diremos que \(P\) é um subcjunto de \(Q\) ou ainda que \(P\) está contido em \(Q\) e escreveremos \(P \subset Q\).</p>
+
+<p>Se invertermos a ordem de escrita dos dois conjuntos \(P\) e \(Q\) e escrevermos \(Q \supset P\), diremos que \(Q\) contém \(P\). Contudo, continuaremos entendendo que \(P\) é subconjunto de \(Q\).</p>
+
+<h4 id="exemplo-1">Exemplo</h4>
+
+<p>Temos que \(P = \{2k; k \in \Bbb{N}\} = \{0, 2, 4, ...\}\) é conjunto dos números naturais pares e portanto, \(P \subset \Bbb{N}\) ou ainda, \(\Bbb{N} \supset P\).</p>
+
+<p>Em particular, as relações entre conjunto dão encejo a uma <code class="language-plaintext highlighter-rouge">álgebra</code> muito especial. À medida que necessitarmos de mais substância, nós faremos mais menções.</p>
+
+<h3 id="conjunto-fechado-em-relação-a-uma-operação">Conjunto fechado em relação a uma operação</h3>
+
+<p>Nos cursos superiores de Matemática, usa-se um conceito muito apropriado para relatar fatos sobre um conjunto e uma determinada operação entre seus elementos. Dado um conjunto \(M\) e uma operação \(\oplus\), dizemos que \(M\) é <code class="language-plaintext highlighter-rouge">fechado</code> em relação à operação \(\oplus\), se para todo \(x,y \in M\), tivermos \(x \oplus y \in M\).</p>
+
+<p>No próximo artigo desta série, nós avançaremos um pouco mais.</p>
+:ET

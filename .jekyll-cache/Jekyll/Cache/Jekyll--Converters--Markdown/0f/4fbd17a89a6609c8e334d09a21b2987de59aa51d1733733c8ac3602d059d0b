@@ -1,4 +1,4 @@
-I"�"<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
+I"}"<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
 
 <p>A sugestão é, em vez de editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code>, você criar um novo em local diferente <code class="language-plaintext highlighter-rouge">/usr/local/fstab</code> que poderá ser editado no Chrome OS mais tarde.</p>
 
@@ -61,12 +61,10 @@
 
 <p>Observe que nós montamos apenas a partição sda5 e terá como ponto de montagem ~/MyFiles/Downloads/Dados.</p>
 
-<blockquote>
-  <p><strong>Nota:</strong> 
- Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando</p>
-
-  <p>echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads.</p>
-</blockquote>
+<div class="nota2"><b>Nota:</b> 
+ Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando<br />
+ " echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads. "
+</div>
 
 <p><strong>Configuração final</strong></p>
 

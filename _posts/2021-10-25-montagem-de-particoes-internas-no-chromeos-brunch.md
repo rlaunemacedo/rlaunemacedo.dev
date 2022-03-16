@@ -83,14 +83,9 @@ Adicione a este arquivo as linhas de montagens conforme as suas necessidades, se
 Observe que nós montamos apenas a partição sda5 e terá como ponto de montagem ~/MyFiles/Downloads/Dados.
 
 <div class="nota2"><b>Nota:</b> 
- Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando </br>
- echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads.
+ Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando<br>
+ " echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads. "
 </div>
-
->**Nota:** 
- Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando 
-> 
-echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads.
 
 **Configuração final**
 

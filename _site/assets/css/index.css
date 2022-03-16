@@ -30,17 +30,15 @@
 
 .col-1 { width: 8.33333333%; }
 
-.avatar-50 { /* Rounded border */ border-radius: 50%; height: 84px; width: 84px; }
+.avatar-50 { border-radius: 50%; height: 84px; width: 84px; }
 
-.avatar-100 { /* Rounded border */ border-radius: 50%; height: 100px; width: 100px; }
+.avatar-100 { border-radius: 50%; height: 100px; width: 100px; }
 
-.avatar__image-10 { /* Rounded border */ border-radius: 50%; /* Take full size */ height: 10%; width: 10%; }
+.avatar__image-10 { border-radius: 50%; height: 10%; width: 10%; }
 
-.avatar__image-100 { /* Rounded border */ border-radius: 50%; /* Take full size */ height: 50%; width: 50%; }
+.avatar__image-50 { border-radius: 50%; height: 50%; width: 50%; }
 
-table { font-size: 16px; }
-
-td, th { padding: 7px 14px; }
+.avatar__image-100 { border-radius: 50%; height: 100%; width: 100%; }
 
 div.tablePlated + table { border-spacing: 1px; border-collapse: separate; }
 
@@ -49,6 +47,22 @@ div.tablePlated + table td, div.tablePlated + table th { background-color: light
 div.tableGridded + table { border-spacing: 0; border-collapse: collapse; }
 
 div.tableGridded + table td, div.tableGridded + table th { border: solid 1px dodgerblue; }
+
+div.container { width: 100%; hheight: 100%; bbackground: -webkit-linear-gradient(top, #088fad 20%, #00d5ff 100%); }
+
+div.container div.titulo { ffont-size: 5vw; background-color: blue; text-align: center; ppadding: 1vw; position: relative; }
+
+div.container div.col-left { width: 20%; display: inline-block; bbackground-color: red; ffont-size: 3vw; text-align: center; ppadding: 1vw 0vw 1vw 0vw; }
+
+div.container div.col-right { width: 80%; bbackground-color: green; display: inline-block; margin-right: 0vw; ffont-size: 3vw; text-align: center; ppadding: 1vw 0vw 1vw 0vw; min-width: 4vw; position: relative; ffloat: right; }
+
+div.container div.col-centro { min-width: 20%; display: inline-block; bbackground-color: red; ffont-size: 3vw; text-align: left; padding: 0vw 0vw 0vw 2vw; }
+
+div.nota { wwidth: 100px; wheight: 100px; padding: 0px 4px 0px 4px; border-width: 1px; border-color: #A8FFBA; background-color: #F0FFFB; border-style: solid; ddisplay: inline-block; border-radius: 3px; }
+
+div.nota1 { wwidth: 100px; wheight: 100px; padding: 0px 5px 0px 5px; border-width: 1px; border-color: #A8FFBA; background-color: #F0FFFB; border-style: solid; ddisplay: inline-block; border-radius: 5px 0px 5px 0px; }
+
+div.nota2 { wwidth: 100px; wheight: 100px; padding: 0px 5px 0px 5px; border-width: 1px; border-color: #A8FFBA; background-color: #F0FFFB; border-style: solid; ddisplay: inline-block; border-radius: 0px 5px 0px 5px; }
 
 body { background: #ffffff; color: #212228; font-family: "PT Sans", -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", sans-serif; font-weight: 400; font-size: calc(0.8rem + 0.2vw); line-height: 1.6; margin: 0; min-height: 100vh; -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 

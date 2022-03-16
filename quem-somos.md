@@ -2,15 +2,25 @@
 title: "Quem somos"
 permalink: "/Sobre/"
 layout: page
+blockquotes: true
+emoji: true
+emphasis: true 
 ---
 
-<img class="avatar__image-10" src="/assets/images/eu-2021.jpg" /> 
+<div class="container">
+    <div class="col-left"><img class="avatar-100" src="/assets/images/eu-2021.jpg"/></div>
+    <div class="col-centro">
+      <h2>Raimundo Nonato Launé Macêdo</h2>
+      <li> Licenciado em Matemática pela Ufma</li>
+      <li> Especialista em Estatística pela Uema</li>
+      <li> Mestre em Matemátia pela Ufma</li>
+    </div>
+</div> 
 
-### Raimundo Nonato Launé Macêdo 
+#### Ufma – Universidade Federal do Maranhão
+#### Uema – Universidade Estadual do Maranhão
 
-  * Licenciado em Matemática pela Ufma
-  * Especialista em Estatística pela Uema
-  * Mestre em Matemátia pela Ufma
+<div class="nota2"><b>Nota:</b> 
+fghdskadjfhg 
+</div>
 
-##### Ufma – Universidade Federal do Maranhão
-##### Uema – Universidade Estadual do Maranhão

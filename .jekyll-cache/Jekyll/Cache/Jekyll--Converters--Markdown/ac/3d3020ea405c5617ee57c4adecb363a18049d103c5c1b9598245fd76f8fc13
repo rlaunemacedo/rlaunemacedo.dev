@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<title>Montagem de partições internas no ChromeOS/Brunch | e.rlaune</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Raimundo Nonato Launé macêdo">
-<meta name="generator" content="Jekyll v4.2.2">
-<link rel="canonical" href="/montagem-de-particoes-internas-no-chromeos-brunch/">
-
-<link rel="stylesheet" href="/assets/css/frame.css">
-
-<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="e.rlaune">
- <!-- page.mathjax or site.mathjax %}-->
-<link rel="stylesheet" href="/assets/katex/katex.min.css">
-<script defer src="/assets/katex/katex.min.js"></script>
-<script defer src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
-
-
-
-
-
-
-
-<header>
-  <a href="/" class="title"><img src="/assets/images/e1.png" style="width:15%"/></br>e.rlaune - despertando competências</a>
-  <nav><a href="/" >Home</a><a href="/Sobre/" >Quem somos</a><a href="/about/" >About</a></nav>
-
-</header>
-
-<article>
-  <header>
-  <h1><a href="/montagem-de-particoes-internas-no-chromeos-brunch/">Montagem de partições internas no ChromeOS/Brunch</a></h1><time datetime="2021-10-25T00:00:00-03:00">October 25, 2021</time>
-</header>
-
-  <p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
+I"�#<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
 
 <p>A sugestão é, em vez de editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code>, você criar um novo em local diferente <code class="language-plaintext highlighter-rouge">/usr/local/fstab</code> que poderá ser editado no Chrome OS mais tarde.</p>
 
@@ -127,17 +93,4 @@ Monte a partição root para escrita com o comando:</p>
 <p>Fonte: 
 <a href="https://github.com/MuntashirAkon/Chrome-OS-Multiboot/">https://github.com/MuntashirAkon/Chrome-OS-Multiboot/</a></p>
 
-
-  
-</article>
-
-
-
-<footer>
-  <div>Made with <b style="color: #f45;">&lt;3</b></div>
-  <nav><a href="mailto:niklasbuschmann@users.noreply.github.com" ><svg aria-label="Mail" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a href="https://github.com/niklasbuschmann/contrast" ><svg aria-label="Github" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#github"></use></svg></a><a href="/feed.xml" ><svg aria-label="Subscribe" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
-
-</footer>
-
-
-</html>
+:ET

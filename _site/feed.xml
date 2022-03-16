@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="pt-BR"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="pt-BR" /><updated>2022-03-16T15:48:37-03:00</updated><id>/feed.xml</id><title type="html">e.rlaune</title><subtitle>Made with &lt;b style=&quot;color: #f45;&quot;&gt;&amp;lt;3&lt;/b&gt;</subtitle><author><name>R N Launé Macêdo</name></author><entry><title type="html">A simplicidade das coisas</title><link href="/a-simplicidade-das-coisas/" rel="alternate" type="text/html" title="A simplicidade das coisas" /><published>2021-10-25T00:00:00-03:00</published><updated>2021-10-25T00:00:00-03:00</updated><id>/a-simplicidade-das-coisas</id><content type="html" xml:base="/a-simplicidade-das-coisas/"><![CDATA[<p>Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="pt-BR"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="pt-BR" /><updated>2022-03-16T16:04:49-03:00</updated><id>/feed.xml</id><title type="html">e.rlaune</title><subtitle>Made with &lt;b style=&quot;color: #f45;&quot;&gt;&amp;lt;3&lt;/b&gt;</subtitle><author><name>R N Launé Macêdo</name></author><entry><title type="html">A simplicidade das coisas</title><link href="/a-simplicidade-das-coisas/" rel="alternate" type="text/html" title="A simplicidade das coisas" /><published>2021-10-25T00:00:00-03:00</published><updated>2021-10-25T00:00:00-03:00</updated><id>/a-simplicidade-das-coisas</id><content type="html" xml:base="/a-simplicidade-das-coisas/"><![CDATA[<p>Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora.</p>
 
 <p>A proximidade que nos referimos anteriormente é aquela que se usa para sistematizar os conceitos já impregnados em nós mesmo. É assim que, o aprendiz associa a palavra “casa” ao conceito associado a ela – o objeto casa ou a abstração lar. Assim, poderemos associar casa e beleza; a casa e a posse dela; casa e a quantidade delas, por exemplo, existente em uma rua – rua também é outro conceito familiar. O que se apreende destas arrumações são as sistematizações, nascem as formalidades. É mais bonito dizer “casa bonita” do que “bonito casa”.</p>
 
@@ -70,6 +70,11 @@
 </code></pre></div></div>
 
 <p>Observe que nós montamos apenas a partição sda5 e terá como ponto de montagem ~/MyFiles/Downloads/Dados.</p>
+
+<div class="nota2"><b>Nota:</b> 
+ Lembre que o código u-9083272a606f9db71de7b7012b129c92046effc5 deve ser alterado em conformidade com o resultado obtido pelo comando &lt;/br&gt;
+ echo /home/$USER/u-$CROS_USER_ID_HASH/MyFiles/Downloads.
+</div>
 
 <blockquote>
   <p><strong>Nota:</strong> 

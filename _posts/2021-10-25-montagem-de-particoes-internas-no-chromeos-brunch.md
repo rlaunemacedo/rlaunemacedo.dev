@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Montagem de partições internas no ChromeOS/Brunch
-author: "Raimundo Nonato Launé macêdo"
+title: 'Montagem de partições internas no ChromeOS/Brunch'
+author: 'Raimundo Nonato Launé macêdo'
 tags:
-- brunch
-- ChromeOS
-- montagem
-- mount
-- partições
+  - brunch
+  - ChromeOS
+  - montagem
+  - mount
+  - partições
 ---
 
 Como você já deve ter notado, as `partições internas` do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar `/etc/fstab` depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta `~/Downloads` para que você possa acessar essas partições de lá.
@@ -17,7 +17,9 @@ A sugestão é, em vez de editar `/etc/fstab`, você criar um novo em local dife
 
 **Partições internas montáveis no disco**
 
-Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os `IDs` do dispositivo usando vários métodos. Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o seguinte comando:
+Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os `IDs` do dispositivo usando vários métodos. 
+
+Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o Terminal do Crosh. Caso você não esteja conseguindo, como eu, acessar o Crosh, use este método [em construção].
 
 Para verificar as partições montáveis no HDD, abra o `CROSH` (ctrl+alt+T) e execute os comandos:
 

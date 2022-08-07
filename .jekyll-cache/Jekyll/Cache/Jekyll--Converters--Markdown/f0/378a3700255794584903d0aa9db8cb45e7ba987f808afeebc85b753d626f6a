@@ -1,10 +1,12 @@
-I"}"<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
+I"�"<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
 
 <p>A sugestão é, em vez de editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code>, você criar um novo em local diferente <code class="language-plaintext highlighter-rouge">/usr/local/fstab</code> que poderá ser editado no Chrome OS mais tarde.</p>
 
 <p><strong>Partições internas montáveis no disco</strong></p>
 
-<p>Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os <code class="language-plaintext highlighter-rouge">IDs</code> do dispositivo usando vários métodos. Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o seguinte comando:</p>
+<p>Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os <code class="language-plaintext highlighter-rouge">IDs</code> do dispositivo usando vários métodos.</p>
+
+<p>Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o Terminal do Crosh. Caso você não esteja conseguindo, como eu, acessar o Crosh, use este método [em construção].</p>
 
 <p>Para verificar as partições montáveis no HDD, abra o <code class="language-plaintext highlighter-rouge">CROSH</code> (ctrl+alt+T) e execute os comandos:</p>
 

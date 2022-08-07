@@ -1,4 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="pt-BR"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="pt-BR" /><updated>2022-03-16T16:10:51-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">e.rlaune</title><subtitle>Made with &lt;b style=&quot;color: #f45;&quot;&gt;&amp;lt;3&lt;/b&gt;</subtitle><author><name>R N Launé Macêdo</name></author><entry><title type="html">A simplicidade das coisas</title><link href="http://localhost:4000/a-simplicidade-das-coisas/" rel="alternate" type="text/html" title="A simplicidade das coisas" /><published>2021-10-25T00:00:00-03:00</published><updated>2021-10-25T00:00:00-03:00</updated><id>http://localhost:4000/a-simplicidade-das-coisas</id><content type="html" xml:base="http://localhost:4000/a-simplicidade-das-coisas/"><![CDATA[<p>Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="pt-BR"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="pt-BR" /><updated>2022-08-07T15:18:03-03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">e.rlaune</title><subtitle>Made with &lt;b style=&quot;color: #f45;&quot;&gt;&amp;lt;3&lt;/b&gt;</subtitle><author><name>R N Launé Macêdo</name></author><entry><title type="html">Montagem de partições internas no ChromeOS/Brunch II</title><link href="http://localhost:4000/montagem-de-particoes-internas-no-chromeos-brunch-II/" rel="alternate" type="text/html" title="Montagem de partições internas no ChromeOS/Brunch II" /><published>2022-08-07T00:00:00-03:00</published><updated>2022-08-07T00:00:00-03:00</updated><id>http://localhost:4000/montagem-de-particoes-internas-no-chromeos-brunch%20II</id><content type="html" xml:base="http://localhost:4000/montagem-de-particoes-internas-no-chromeos-brunch-II/"><![CDATA[<p>Como você já deve ter notado, as <code class="language-plaintext highlighter-rouge">partições internas</code> do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code> depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta <code class="language-plaintext highlighter-rouge">~/Downloads</code> para que você possa acessar essas partições de lá.</p>
+
+<p>A sugestão é, em vez de editar <code class="language-plaintext highlighter-rouge">/etc/fstab</code>, você criar um novo em local diferente <code class="language-plaintext highlighter-rouge">/usr/local/fstab</code> que poderá ser editado no Chrome OS mais tarde.</p>
+
+<p>Para quem como eu não esteja conseguindo executar o Terminal Crosh, vamos resolver de outra forma. Iremos precisar instalar um Editor de Textos no ChromeOS, use o Play Store e esolha o mais simples.</p>
+
+<p>Em vez do Crosh, vamos utilizar um terminal do sistema pressionando Ctrl + Alt + F2. Na primeira vez você deverá logar como root e, se pedir senha,
+responda com enter. Agora você deverá definir uma senha para o usuário chronos da segunte forma:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chromeos-setdevpasswd
+</code></pre></div></div>
+
+<p>digite e confirme uma senha para chronos. Pronto, da próxima vez em login: responda chronos e digite a senha deste usuário.</p>
+
+<p><strong>Partições internas montáveis no disco</strong></p>
+
+<p>Para saber as partições que você quer montar automaticamente quando logar no ChromeOS, vamos listar as partições montáveis.
+No terminal digite:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> /sbin/blkid <span class="nt">-o</span> full | <span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"^/dev/sd.*TYPE"</span> | <span class="nb">grep</span> <span class="nt">-vE</span> <span class="s2">"EFI|STATE|ROOT-A"</span>
+</code></pre></div></div>
+
+<p>Você obterá como resposta uma lista das partições montáveis parecida com esta:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1: <span class="nv">UUID</span><span class="o">=</span><span class="s2">"72FB-DEFB"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"512"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"vfat"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"0538aab4-ffd6-49cd-a555-3f08ef2124ec"</span>
+/dev/sda2: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"Mint19.3"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"833aae96-3d32-41ee-b5ea-99a959506114"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"Mint19.3"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"454a609f-6711-481f-ad00-c7328cf99ae7"</span>
+/dev/sda3: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"ChromeOS"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"512"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"284A910B20CA3FF7"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ntfs"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"ChromeOS"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"c36e518b-455c-4d52-859c-9c0cd9328649"</span>
+/dev/sda4: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"rootMX19"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"3d274ab4-da97-4d66-a447-6ab1d337beef"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"MX19"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"82b570a9-76c0-4b71-b093-b2baeaa0e75c"</span>
+/dev/sda5: <span class="nv">LABEL</span><span class="o">=</span><span class="s2">"DadosSSD"</span> <span class="nv">UUID</span><span class="o">=</span><span class="s2">"2bf709a6-dccd-4da9-932f-7fe67bed0fd2"</span> <span class="nv">BLOCK_SIZE</span><span class="o">=</span><span class="s2">"4096"</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">"ext4"</span> <span class="nv">PARTLABEL</span><span class="o">=</span><span class="s2">"DadosSSD"</span> <span class="nv">PARTUUID</span><span class="o">=</span><span class="s2">"21bc6803-de42-454b-a9c6-4e6045427108"</span>
+</code></pre></div></div>
+
+<p>Tome nota das partições que você quer montar automaticamente (por exemplo, vamos montar <code class="language-plaintext highlighter-rouge">/dev/sda4</code> e <code class="language-plaintext highlighter-rouge">/dev/sda5</code>).</p>
+
+<p><strong>Ponto de montagem da partição</strong></p>
+
+<p>Importante observar que a pasta ~/Dowloads é montada em local específico para cada usuário e depende da versão do Chrome OS. 
+Para descobrir o seu local em particular, vamos digitar:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /home/chronos | <span class="nb">grep </span>u-
+</code></pre></div></div>
+
+<p>Este comando deverá ter como resultado a saída parecida com esta:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u-9083272a606f9db71de7b7012b129c92046effc5
+</code></pre></div></div>
+
+<p>Para não ser preciso digitar esse código (e errar!), vamos mandar este resultado para um arquivo em local acessivo - sua pasta Downloads. Digite:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /home/chronos | <span class="nb">grep </span>u- <span class="o">&gt;</span> Downloads/ID.txt
+</code></pre></div></div>
+
+<p>Vamos voltar para o ambiente gráfico. Pressione Ctrl + Alt + F1</p>
+
+<p><strong>Estrutura do arquivo fstab</strong></p>
+
+<p>Com o aplicativo Arquivos, navegue até a pasta Downloads para abrir o arquivo ID.txt que nos criamos como saída do comando ls. Vamos aproveitar aquele nome de diretório que começa com ‘u-‘.</p>
+
+<p>Está claro que para cada partição, que você queira montar, deverá existir um ponto de montagem. 
+Vamos editar o arquivo ID.txt e salvá-lo com outro nome <code class="language-plaintext highlighter-rouge">fstab</code> na pasta Downloads com as seguintes linhas:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda3 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome1 auto defaults 0 0
+/dev/sda4 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome2 auto defaults 0 0
+</code></pre></div></div>
+
+<p>Uma vez criado o arquivo fstab, baixe e salve o arquivo 
+<a href="https://raw.githubusercontent.com/MuntashirAkon/Chrome-OS-Multiboot/master/mount-internals.conf">mount-internals.conf</a> na pasta Dowloads (Ctrl+S).</p>
+
+<p>Vamos voltar novamente ao Terminal com Ctrl + Alt + F2 e vamos copiar dois dos arquivos em Downloads, para tal vamos digitar os seguintes comandos:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>Downloads
+<span class="nb">sudo cp </span>mount-internals.conf /etc/init/
+<span class="nb">sudo cp </span>fstab /usr/local/
+</code></pre></div></div>
+
+<p><strong>Configuração final</strong></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mount <span class="nt">-o</span> rw,remount /
+</code></pre></div></div>
+
+<p>Pronto! Agora você poderá reiniciar seu Chrome.</p>
+
+<hr />
+<p>Fonte: 
+<a href="https://github.com/MuntashirAkon/Chrome-OS-Multiboot/">https://github.com/MuntashirAkon/Chrome-OS-Multiboot/</a></p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><category term="brunch" /><category term="ChromeOS" /><category term="montagem" /><category term="mount" /><category term="partições" /><summary type="html"><![CDATA[Como você já deve ter notado, as partições internas do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar /etc/fstab depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta ~/Downloads para que você possa acessar essas partições de lá. A sugestão é, em vez de editar /etc/fstab, você criar um novo em local diferente /usr/local/fstab que poderá ser editado no Chrome OS mais tarde.]]></summary></entry><entry><title type="html">A simplicidade das coisas</title><link href="http://localhost:4000/a-simplicidade-das-coisas/" rel="alternate" type="text/html" title="A simplicidade das coisas" /><published>2021-10-25T00:00:00-03:00</published><updated>2021-10-25T00:00:00-03:00</updated><id>http://localhost:4000/a-simplicidade-das-coisas</id><content type="html" xml:base="http://localhost:4000/a-simplicidade-das-coisas/"><![CDATA[<p>Quando começamos a nossa vida escolar, normalmente tudo está muito próximo daquilo que já conhecemos. Inclusive, valorizar o que já sabemos para aprender coisas novas é parte da pedagogia de um dos maiores estudiosos do binômio ensino-aprendizagem – o mestre Paulo Freire tão justamente referendado mundo a fora.</p>
 
 <p>A proximidade que nos referimos anteriormente é aquela que se usa para sistematizar os conceitos já impregnados em nós mesmo. É assim que, o aprendiz associa a palavra “casa” ao conceito associado a ela – o objeto casa ou a abstração lar. Assim, poderemos associar casa e beleza; a casa e a posse dela; casa e a quantidade delas, por exemplo, existente em uma rua – rua também é outro conceito familiar. O que se apreende destas arrumações são as sistematizações, nascem as formalidades. É mais bonito dizer “casa bonita” do que “bonito casa”.</p>
 
@@ -14,7 +97,9 @@
 
 <p><strong>Partições internas montáveis no disco</strong></p>
 
-<p>Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os <code class="language-plaintext highlighter-rouge">IDs</code> do dispositivo usando vários métodos. Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o seguinte comando:</p>
+<p>Primeiro, você precisa determinar quais partições devem ser montadas na inicialização. Você pode obter os <code class="language-plaintext highlighter-rouge">IDs</code> do dispositivo usando vários métodos.</p>
+
+<p>Por exemplo, no Chrome OS, você pode obter uma lista de partições montáveis usando o Terminal do Crosh. Caso você não esteja conseguindo, como eu, acessar o Crosh, use este método [em construção].</p>
 
 <p>Para verificar as partições montáveis no HDD, abra o <code class="language-plaintext highlighter-rouge">CROSH</code> (ctrl+alt+T) e execute os comandos:</p>
 
@@ -640,102 +725,4 @@ O problema de encontrar os dois números reais \(x'\) e \(x''\) tais que satis
   <span class="nt">&lt;/select&gt;</span>
 </code></pre></div></div>
 
-<p>Pronto. Sugerimos que você primeiro experimente este exemplo para ver como funciona e, a partir do seu entendimento, adeque às suas necessidades!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Muitas pessoas têm dúvidas de como popular as opções de um select dependendo de uma escolha selecionada em um outro select. Nesta abordagem, vamos combinar dois arquivos: o primeiro, conterá scripts html, js e aJax, e o segundo contará com script php, js e html.]]></summary></entry><entry><title type="html">ChromeOS-Brunch dual boot com linux</title><link href="http://localhost:4000/chromeos-mint/" rel="alternate" type="text/html" title="ChromeOS-Brunch dual boot com linux" /><published>2021-03-01T00:00:00-03:00</published><updated>2021-03-01T00:00:00-03:00</updated><id>http://localhost:4000/chromeos-mint</id><content type="html" xml:base="http://localhost:4000/chromeos-mint/"><![CDATA[<p>Se você já possui o Linux instalado e funcionando em seu computador e quer instalar o Chrome OS, do projeto brunch, em “dual boot”, este tutorial pode ajudá-lo.</p>
-
-<p>O procedimento aqui adotado foi testado em dois notebooks baseados no Intel. Um apenas com Linux Mint 19.3 instalado e outro que já possuía dual boot com a mesma versão do Mint e Windows 10. Nos dois notebooks, utilizamos o terminal de comandos do linux.</p>
-
-<p>Supondo que você já possua alguma habilidade com a criação de partições em HD/SSD com gparted ou outro aplicativo similar, bem como a manipulação de entradas no grub com o grub-customize ou outra forma, não iremos entrar nestes detalhes.</p>
-
-<h3 id="o-processo-de-istalação-consiste-em">O processo de istalação consiste em:</h3>
-<ul>
-  <li>Baixar os arquivos necessários para a instalação do brunch (imagem e o brunch, ambos compactados), aqui iremos referenciá-lo como ChromeOS;</li>
-  <li>Instalação dos utilitários linux necessárias à manipulação de arquivos compactados, edição de grub, manipulação de partições no disco e das ferramentas pv e cgpt;</li>
-  <li>Descompactar o conteúdo dos arquivos baixados em uma pasta criada para tal finalidade;</li>
-  <li>Escolha/criação da partição onde será instalado o ChromeOS;</li>
-  <li>Montagem da partição escolhida em um ponto de montagem;</li>
-  <li>Instalação do ChromeOS; e</li>
-  <li>Inclusão da entrada no menu do grub.</li>
-</ul>
-
-<h3 id="então-vamos-começar">Então vamos começar</h3>
-
-<h4 id="cromeosbrunch">CromeOS/Brunch</h4>
-<p>Baixar a imagem de recuperação do CromeOS e o lançamento Brunch, ambos com a mesma versão, por exemplo em nosso caso, instalamos a versão 94. 
-Links:</p>
-<ul>
-  <li><a href="https://chromiumdash.appspot.com/serving-builds">Imagem ChromeOS</a></li>
-  <li><a href="https://github.com/sebanc/brunch/releases">Brunch</a></li>
-</ul>
-
-<h4 id="pv-cgpt-tar-e-unzip">pv, cgpt, tar, e unzip</h4>
-<p>Certifique-se de já ter instalado estes programas aqui, pois necessários:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update &amp;&amp; sudo apt -y install pv cgpt tar unzip
-</code></pre></div></div>
-<h4 id="organização-dos-arquivos-já-descompactados-em-uma-pasta">Organização dos arquivos já descompactados em uma pasta</h4>
-<p>Devemos criar uma pasta para colocar os aquivos necessários à instalação do ChromeOS. Para efeitos deste artigo, criaremos a pasta <code class="language-plaintext highlighter-rouge">Chomeos</code> em <code class="language-plaintext highlighter-rouge">Downloads</code>:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/Dowloads/Chromeos
-</code></pre></div></div>
-<p>Extrair o conteúdos dos arquivos baixados para a pasta recém criada. Renomear o arquivo com extensão .bin para rammus_recovery.bin (este será o único arquivo a ser renomeado). Ao final, deveremos ter os cinco arquivos desta lista:</p>
-
-<ul>
-  <li>chromeos-install.sh</li>
-  <li>efi_legacy.img</li>
-  <li>efi_secure.img</li>
-  <li>rammus_recovery.bin</li>
-  <li>rootc.img</li>
-</ul>
-
-<h4 id="partição-para-instalação-do-chromeos">Partição para instalação do ChromeOS</h4>
-<p>Neste ponto você deverá escolher ou criar a partição na qual o ChromeOS será instalado. A partição não poderá ter tamanho inferio a 16GB. (sugestão 30GB). Caso não exista, use o gparted para determinar a partição e formate-a como ext4 ou ntfs. Sugerimos ext4.</p>
-
-<p>Certifique-se de ter instalado o gparted com o comando:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt -y install gparted
-</code></pre></div></div>
-<p>Verificando as partições existentes (opcional)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsblk -e7
-</code></pre></div></div>
-
-<h4 id="montagem-da-partição">Montagem da partição</h4>
-<p>Uma vez escolhida a partição que receberá o ChromeOS, devemos montá-la para iniciarmos a instalação. Primeiro criaremos um local de montagem e depois montaremos a partição neste ponto. Para efeito deste artigo, como exemplo, utilizaremos a partição <code class="language-plaintext highlighter-rouge">sda5</code>. (Nota: No comando mount, NÃO esqueça de substituir a partição para o seu caso em particular):</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p ~/tmpmount
-sudo mount /dev/sda5 ~/tmpmount
-</code></pre></div></div>
-<h4 id="instalação">Instalação</h4>
-<p>Motada a partição de destino, vamos instalar o ChromeOS. Para tanto, vamos nos posicionar na pasta onde estão os arquivos que baixamos:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/Downloads/Chromeos 
-sudo bash chromeos-install.sh -src rammus_recovery.bin -dst ~/tmpmount/chromeos.img -s 30
-</code></pre></div></div>
-<p>O script pedirá confirmação. Se você estiver pronto para instalar, digite <code class="language-plaintext highlighter-rouge">yes</code> para confirmar.</p>
-
-<h4 id="inclusão-no-menu-do-grub">Inclusão no menu do grub</h4>
-<p>Vamos sugerir a utilização do grub-customize para esta finalidade.</p>
-
-<p>“Script” sugerido para entrada do grub (Nota: lembre de alterar <code class="language-plaintext highlighter-rouge">sda5</code> para a partição que você escolheu/criou anteriormente!):</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rmmod tpm
-img_part=/dev/sda5
-img_path=/chromeos.img
-search --no-floppy --set=root --file $img_path
-loopback loop $img_path
-linux (loop,7)/kernel boot=local noresume noswap loglevel=7 disablevmx=off  \
-	cros_secure cros_debug options= loop.max_part=16 img_part=$img_part img_path=$img_path \
-	console= vt.global_cursor_default=0 brunch_bootsplash=default
-initrd (loop,7)/lib/firmware/amd-ucode.img (loop,7)/lib/firmware/intel-ucode.img (loop,7)/initramfs.img
-</code></pre></div></div>
-<h5 id="grub-customize">grub-customize</h5>
-<ul>
-  <li>No menu “Editar” do grub-customize, opte por “Novo”;</li>
-  <li>Na janela “Editor de Entradas – Grub Customizer”, dê um nome para a entrada (Exemplo: ChromeOS) e, para tipo, escolha “Outro”;</li>
-  <li>Copie o “script” acima neste tutorial e cole na caixa de textos da janela “Editor de Entradas – Grub Customizer”;</li>
-  <li>Com todos os campos preenchidos na janela “Editor de Entradas – Grub Customizer”, pressione o botão “OK” e a janela irá se fechar;</li>
-  <li>De volta à janela anterior do Grub Customize, pressione o botão salvar</li>
-</ul>
-
-<h4 id="desmontando-a-partição">Desmontando a partição</h4>
-<p>Agora você já pode desmontar a partição com o comando:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo umount ~/tmpmount
-</code></pre></div></div>
-<p>Pronto, agora você já pode reiniciar o computador e no menu do grub selecione a entrada ChromeOS. Da primeira vez demorará um pouco e você será convidado a fornecer as informações da nova máquina Chrome OS.</p>
-
-<hr />
-<p>Fonte: <a href="https://github.com/sebanc/brunch/blob/master/install-with-linux.md">github.com/sebanc/brunch</a>
-(seção: Dualboot installations).</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Se você já possui o Linux instalado e funcionando em seu computador e quer instalar o Chrome OS, do projeto brunch, em “dual boot”, este tutorial pode ajudá-lo. O procedimento aqui adotado foi testado em dois notebooks baseados no Intel. Um apenas com Linux Mint 19.3 instalado e outro que já possuía dual boot com a mesma versão do Mint e Windows 10. Nos dois notebooks, utilizamos o terminal de comandos do linux.]]></summary></entry></feed>
+<p>Pronto. Sugerimos que você primeiro experimente este exemplo para ver como funciona e, a partir do seu entendimento, adeque às suas necessidades!</p>]]></content><author><name>Raimundo Nonato Launé macêdo</name></author><summary type="html"><![CDATA[Muitas pessoas têm dúvidas de como popular as opções de um select dependendo de uma escolha selecionada em um outro select. Nesta abordagem, vamos combinar dois arquivos: o primeiro, conterá scripts html, js e aJax, e o segundo contará com script php, js e html.]]></summary></entry></feed>

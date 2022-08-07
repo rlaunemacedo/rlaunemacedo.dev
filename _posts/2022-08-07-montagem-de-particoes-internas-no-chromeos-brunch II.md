@@ -10,21 +10,18 @@ tags:
   - partições
 ---
 
-No artigo [Montagem de partições internas no ChromeOS/Brunch](https://rlaunemacedo.github.io/montagem-de-particoes-internas-no-chromeos-brunch/) que escrevi anteriormente, usamos o `Terminal Crosh` para executas diversas tarefas para conseguir o objetivo.
+No artigo [Montagem de partições internas no ChromeOS/Brunch](https://rlaunemacedo.github.io/montagem-de-particoes-internas-no-chromeos-brunch/) que escrevemos anteriormente, usamos o `Terminal Crosh` para executar diversas tarefas para conseguir o nosso objetivo.
 
-Escrevemos este segundo artigo para as pessoas que, a partir de novas atualizações do Projeto Brunch, como a que estou utilizando, não conseguiram mais executar o Crosh.
+Este segundo artigo é dedicado às pessoas que, a partir de novas atualizações do `Projeto Brunch`, como a que estou utilizando, não conseguiram mais executar o Crosh.
 
 
-Vamos resolver de outra forma. Iremos precisar instalar um Editor de Textos no ChromeOS. Use o Play Store para isto e esolha o mais simples editor.
-
-Em vez do Crosh, vamos utilizar um terminal do sistema pressionando Ctrl + Alt + F2. Na primeira vez você deverá logar como root e, se pedir senha,
-responda com enter. Agora você deverá definir uma senha para o usuário chronos da segunte forma:
+Em vez do Crosh, vamos utilizar um terminal do sistema pressionando Ctrl + Alt + F2. Na primeira vez você deverá logar como root e, se pedir senha, responda com enter. Agora você deverá definir uma senha para o usuário chronos da segunte forma:
 
 ```shell
 chromeos-setdevpasswd
 ```
 
-digite e confirme uma senha para chronos. Pronto, da próxima vez em login: responda chronos e digite a senha deste usuário.
+Digite e confirme uma senha para chronos. Pronto, nas próxima vezes em login: responda chronos e digite a senha deste usuário.
 
 
 **Partições internas montáveis no disco**
@@ -63,7 +60,6 @@ Este comando deverá ter como resultado a saída parecida com esta:
 u-9083272a606f9db71de7b7012b129c92046effc5
 ```
 
-
 Para não ser preciso digitar esse código (e errar!), vamos mandar este resultado para um arquivo em local acessivo - sua pasta Downloads. Digite:
 
 ```shell
@@ -74,7 +70,9 @@ Vamos voltar para o ambiente gráfico. Pressione Ctrl + Alt + F1
 
 **Estrutura do arquivo fstab**
 
-Com o aplicativo Arquivos, navegue até a pasta Downloads para abrir o arquivo ID.txt que nos criamos como saída do comando ls. Vamos aproveitar aquele nome de diretório que começa com 'u-'.
+A partir de agora vamos precisa de um editor de textos. Use o Play Store para isto e esolha o mais simples para instalar.
+
+Com o aplicativo Arquivos, navegue até a pasta Downloads para abrir o arquivo ID.txt que nos criamos como saída do comando ls no terminal. Vamos aproveitar aquele nome de diretório que começa com 'u-'.
 
 Está claro que para cada partição, que você queira montar, deverá existir um ponto de montagem. 
 Vamos editar o arquivo ID.txt e salvá-lo com outro nome `fstab` na pasta Downloads com as seguintes linhas:

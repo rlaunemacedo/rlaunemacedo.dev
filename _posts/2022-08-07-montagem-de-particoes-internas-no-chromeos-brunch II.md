@@ -10,12 +10,12 @@ tags:
   - partições
 ---
 
-Como você já deve ter notado, as `partições internas` do seu HD/SDD não são montadas por padrão (já que o Chrome OS nunca deve ser usado dessa forma). Portanto, para montar as partições internas, você precisará editar `/etc/fstab` depois de criar uma conta de usuário no Chrome OS. A ideia é montá-los dentro da pasta `~/Downloads` para que você possa acessar essas partições de lá.
+No artigo [Montagem de partições internas no ChromeOS/Brunch](https://rlaunemacedo.github.io/montagem-de-particoes-internas-no-chromeos-brunch/) que escrevi anteriormente, usamos o `Terminal Crosh` para executas diversas tarefas para conseguir o objetivo.
 
-A sugestão é, em vez de editar `/etc/fstab`, você criar um novo em local diferente `/usr/local/fstab` que poderá ser editado no Chrome OS mais tarde.
+Escrevemos este segundo artigo para as pessoas que, a partir de novas atualizações do Projeto Brunch, como a que estou utilizando, não conseguiram mais executar o Crosh.
 
 
-Para quem como eu não esteja conseguindo executar o Terminal Crosh, vamos resolver de outra forma. Iremos precisar instalar um Editor de Textos no ChromeOS, use o Play Store e esolha o mais simples.
+Vamos resolver de outra forma. Iremos precisar instalar um Editor de Textos no ChromeOS. Use o Play Store para isto e esolha o mais simples editor.
 
 Em vez do Crosh, vamos utilizar um terminal do sistema pressionando Ctrl + Alt + F2. Na primeira vez você deverá logar como root e, se pedir senha,
 responda com enter. Agora você deverá definir uma senha para o usuário chronos da segunte forma:

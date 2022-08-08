@@ -63,9 +63,9 @@ Você obterá como resposta algo do tipo (meu caso):
 Está claro que para cada partição, que você queira montar, deverá existir um ponto de montagem. Assim, o arquivo fstab deverá ter a seguinte estrutura (por exemplo):
 
 ```shell
-/dev/sda1 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome1 auto default 0 0
-/dev/sda2 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome2 auto default 0 0
-/dev/sda3 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome3 auto default 0 0
+/dev/sda1 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome1 auto defaults 0 0
+/dev/sda2 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome2 auto defaults 0 0
+/dev/sda3 /home/chronos/u-9083272a606f9db71de7b7012b129c92046effc5/MyFiles/Downloads/Nome3 auto defaults 0 0
 ```
 
 **Criação do arquivo /usr/local/fstab**

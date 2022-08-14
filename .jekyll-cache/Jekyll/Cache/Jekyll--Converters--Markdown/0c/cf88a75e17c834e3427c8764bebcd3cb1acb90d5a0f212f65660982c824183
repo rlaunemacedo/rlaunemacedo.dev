@@ -1,33 +1,25 @@
----
-title: "Quem somos"
-permalink: "/Sobre/"
-layout: page
-blockquotes: true
-emoji: true
-emphasis: true 
----
-
+I"
 <script src="https://www.google.com/recaptcha/api.js"></script>
 
 <div class="container">
-    <div class="col-left"><img class="avatar-100" src="/assets/images/eu-2021.jpg"/></div>
+    <div class="col-left"><img class="avatar-100" src="/assets/images/eu-2021.jpg" /></div>
     <div class="col-centro">
       <h2>Raimundo Nonato Launé Macêdo</h2>
       <li> Licenciado em Matemática pela Ufma</li>
       <li> Especialista em Estatística pela Uema</li>
       <li> Mestre em Matemátia pela Ufma</li>
     </div>
-</div> 
+</div>
 
-#### Ufma – Universidade Federal do Maranhão
-#### Uema – Universidade Estadual do Maranhão
+<h4 id="ufma--universidade-federal-do-maranhão">Ufma – Universidade Federal do Maranhão</h4>
+<h4 id="uema--universidade-estadual-do-maranhão">Uema – Universidade Estadual do Maranhão</h4>
 
----
+<hr />
 
-## Quer entrar em contato conosco?
+<h2 id="quer-entrar-em-contato-conosco">Quer entrar em contato conosco?</h2>
 <p>Preencha o formulário abaixo e envie-nos uma mensagem. Retornaremos o mais breve possível!</p>
 
-<form action="https://smartforms.dev/submit/62f8d0807a195017922f1e8e" method="POST" >
+<form action="https://smartforms.dev/submit/62f8d0807a195017922f1e8e" method="POST">
   <ul class="form-style-1">
     <!--li> COMENTADO POR LAUNE
       <label>Full Name <span class="required">*</span></label>
@@ -36,15 +28,15 @@ emphasis: true
     </li-->
     <li>
         <label>Nome <span class="required">*</span></label>
-        <input type="text" name="NOME" class="field-long" placeholder="Nome completo..."/>
+        <input type="text" name="NOME" class="field-long" placeholder="Nome completo..." />
     </li>
     <li>
         <label>Telefone com DDD <span class="required">*</span></label>
-        <input type="text" name="fone" class="field-long"  placeholder="Telefone com DDD..."/>
+        <input type="text" name="fone" class="field-long" placeholder="Telefone com DDD..." />
     </li>
     <li>
         <label>Email <span class="required">*</span></label>
-        <input type="email" name="email" class="field-long"  placeholder="Email para contato"/>
+        <input type="email" name="email" class="field-long" placeholder="Email para contato" />
     </li>
     <!--li> COMENTADO POR LAUNE
         <label>Subject</label>
@@ -71,3 +63,4 @@ emphasis: true
 É aqui... 
 </div-->
 
+:ET

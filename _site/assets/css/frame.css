@@ -64,6 +64,42 @@ div.nota1 { wwidth: 100px; wheight: 100px; padding: 0px 5px 0px 5px; border-widt
 
 div.nota2 { wwidth: 100px; wheight: 100px; padding: 0px 5px 0px 5px; border-width: 1px; border-color: #A8FFBA; background-color: #F0FFFB; border-style: solid; ddisplay: inline-block; border-radius: 0px 5px 0px 5px; }
 
+.form-style-1 { margin: 10px auto; max-width: 400px; padding: 20px 12px 10px 20px; font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif; }
+
+.form-style-1 li { padding: 0; display: block; list-style: none; margin: 10px 0 0 0; }
+
+.form-style-1 label { margin: 0 0 3px 0; padding: 0px; display: block; font-weight: bold; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 input { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 textarea { box-sizing: border-box; border: 1px solid #BEBEBE; padding: 7px; margin: 0px; outline: none; }
+
+.form-style-1 .field-divided { width: 49%; }
+
+.form-style-1 .field-long { width: 100%; }
+
+.form-style-1 .field-select { width: 100%; }
+
+.form-style-1 .field-textarea { height: 100px; }
+
+.form-style-1 input[type=submit], .form-style-1 input[type=button] { background: #4B99AD; padding: 8px 15px 8px 15px; border: none; color: #fff; }
+
+.form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover { background: #4691A4; box-shadow: none; -moz-box-shadow: none; -webkit-box-shadow: none; }
+
 body { background: #ffffff; color: #212228; font-family: "PT Sans", -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", sans-serif; font-weight: 400; font-size: calc(0.8rem + 0.2vw); line-height: 1.6; margin: 0; min-height: 100vh; -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 @media (prefers-color-scheme: dark) { body { background: #212228; color: #ffffff; } }

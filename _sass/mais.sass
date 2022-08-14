@@ -155,7 +155,6 @@ div.nota2
   ddisplay: inline-block
   border-radius: 0px 5px 0px 5px
 
-
 .form-style-1 
   margin: 10px auto
   max-width: 400px
@@ -174,77 +173,25 @@ div.nota2
   display: block
   font-weight: bold
 
-.form-style-1 input
-  &[type="text"]
+.form-style-1 input[type=text], .form-style-1 input[type=date], .form-style-1 input[type=datetime], .form-style-1 input[type=number], .form-style-1 input[type=search], .form-style-1 input[type=time], .form-style-1 input[type=url], .form-style-1 input[type=email], textarea, select
   box-sizing: border-box
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
   border: 1px solid #BEBEBE
   padding: 7px
   margin: 0px
-  outline: none
- 
-.form-style-1 input
-  &[type="date"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
+  -webkit-transition: all 0.30s ease-in-out
+  -moz-transition: all 0.30s ease-in-out
+  -ms-transition: all 0.30s ease-in-out
+  -o-transition: all 0.30s ease-in-out
+  outline: none  
 
-.form-style-1 input
-  &[type="datetime"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
-.form-style-1 input
-  &[type="number"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
-.form-style-1 input
-  &[type="search"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
-.form-style-1 input
-  &[type="time"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
-.form-style-1 input
-  &[type="url"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
-.form-style-1 input
-  &[type="email"]
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
-.form-style-1 textarea
-  box-sizing: border-box
-  border: 1px solid #BEBEBE
-  padding: 7px
-  margin: 0px
-  outline: none
-
+.form-style-1 input[type=text]:focus, .form-style-1 input[type=date]:focus, .form-style-1 input[type=datetime]:focus, .form-style-1 input[type=number]:focus, .form-style-1 input[type=search]:focus, .form-style-1 input[type=time]:focus, .form-style-1 input[type=url]:focus, .form-style-1 input[type=email]:focus, .form-style-1 textarea:focus, 
+.form-style-1 select:focus 
+  -moz-box-shadow: 0 0 8px #88D5E9
+  -webkit-box-shadow: 0 0 8px #88D5E9
+  box-shadow: 0 0 8px #88D5E9
+  border: 1px solid #88D5E9
 
 .form-style-1 .field-divided
   width: 49%
@@ -272,4 +219,4 @@ div.nota2
   -webkit-box-shadow: none
 
 .form-style-1 .required
-  color:red
+  color: red
